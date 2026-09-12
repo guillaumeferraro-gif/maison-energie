@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#122323"><meta name="description" content="Les flux d’énergie de votre maison, vos appareils Shelly et votre historique photovoltaïque.">
+<title>Maison · Énergie</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23122323'/%3E%3Cpath d='M6 16 16 7l10 9v10H6Z' fill='none' stroke='%2371e2ba' stroke-width='2'/%3E%3Cpath d='m17 13-5 7h4l-1 5 6-8h-4Z' fill='%2371e2ba'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<svg class="icon-sprite" aria-hidden="true"><defs>
+<symbol id="i-home" viewBox="0 0 24 24"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1Z"/></symbol>
+<symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5"/></symbol>
+<symbol id="i-grid" viewBox="0 0 24 24"><path d="m8 3-3 18m11-18 3 18M6 8h12M4 14h16M9 3h6M8 21l8-13m0 13L8 8"/></symbol>
+<symbol id="i-zap" viewBox="0 0 24 24"><path d="m13 2-9 12h7l-1 8 10-13h-7Z"/></symbol>
+<symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 3v17h17M9 16V9m5 7V5m5 11v-5"/></symbol>
+<symbol id="i-device" viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="3"/><path d="M9 7h6m-6 4h6m-4 6h2"/></symbol>
+<symbol id="i-settings" viewBox="0 0 24 24"><path d="M4 7h16M4 17h16"/><circle cx="9" cy="7" r="3"/><circle cx="15" cy="17" r="3"/></symbol>
+<symbol id="i-pool" viewBox="0 0 24 24"><path d="M2 17q3-3 6 0t6 0 6 0M2 21q3-3 6 0t6 0 6 0M6 14V4a2 2 0 0 1 4 0m3 10V4a2 2 0 0 1 4 0M6 7h7m-7 4h7"/></symbol>
+<symbol id="i-fan" viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"/><path d="M10 10C1 6 8 0 12 5l1 5m1 0c4-9 10-2 5 2l-5 1m0 1c9 4 2 10-2 5l-1-5m-1 0c-4 9-10 2-5-2l5-1"/></symbol>
+<symbol id="i-water" viewBox="0 0 24 24"><path d="M12 2S5 10 5 15a7 7 0 0 0 14 0c0-5-7-13-7-13Z"/><path d="M9 15a3 3 0 0 0 3 3"/></symbol>
+<symbol id="i-gate" viewBox="0 0 24 24"><path d="M3 21V4m18 17V4M3 7h18M3 18h18M7 7v11m5-11v11m5-11v11"/></symbol>
+<symbol id="i-garage" viewBox="0 0 24 24"><path d="m2 8 10-6 10 6v13H2ZM6 21V10h12v11M6 14h12M6 18h12"/></symbol>
+<symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14m-5-5 5 5-5 5"/></symbol>
+<symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12m-5-5 5 5 5-5M4 16v5h16v-5"/></symbol>
+</defs></svg>
+<aside class="sidebar">
+  <a class="brand" href="#overview"><span class="brand-mark"><svg><use href="#i-home"/></svg></span><span>Maison<span class="brand-sub">MON ÉNERGIE</span></span></a>
+  <div class="side-label">TABLEAU DE BORD</div>
+  <nav aria-label="Navigation principale">
+    <a class="nav-item active" href="#overview"><svg><use href="#i-zap"/></svg>Vue d’ensemble</a>
+    <a class="nav-item" href="#history"><svg><use href="#i-chart"/></svg>Historique</a>
+    <a class="nav-item" href="#devices"><svg><use href="#i-device"/></svg>Mes appareils</a>
+    <a class="nav-item" href="#access"><svg><use href="#i-gate"/></svg>Accès maison</a>
+  </nav>
+  <div class="sidebar-bottom"><div class="home-pill"><span class="avatar">G</span><span>Ma maison<small>Heure de Paris</small></span></div><button class="nav-item" data-settings><svg><use href="#i-settings"/></svg>Réglages</button></div>
+</aside>
+<main id="overview">
+  <header class="page-header"><div><div class="eyebrow" id="today-label">MA MAISON</div><h1>L’énergie, en un regard.</h1></div><div class="header-actions"><span class="mode-badge" id="mode-badge">Démonstration</span><button class="icon-button" data-settings aria-label="Ouvrir les réglages"><svg><use href="#i-settings"/></svg></button></div></header>
+  <div class="demo-banner" id="mode-banner"><span><b>Vous explorez une démonstration.</b> Les valeurs sont simulées.</span><button data-settings>Connecter mes Shelly <span aria-hidden="true">↗</span></button></div>
+  <section class="stat-grid" aria-label="Puissances instantanées">
+    <article class="stat main-stat"><div class="stat-label"><span><svg><use href="#i-home"/></svg>Consommation maison</span><span class="live-label" id="live-label">SIMULATION</span></div><div class="stat-value" id="home-power">—</div><div class="stat-foot" id="home-foot">Puissance instantanée</div></article>
+    <article class="stat"><div class="stat-label"><span><svg class="solar-color"><use href="#i-sun"/></svg>Production solaire</span></div><div class="stat-value" id="solar-power">—</div><div class="stat-foot" id="solar-foot">Panneaux photovoltaïques</div></article>
+    <article class="stat"><div class="stat-label"><span><svg class="grid-color"><use href="#i-grid"/></svg><span id="grid-title">Réseau électrique</span></span></div><div class="stat-value" id="grid-power">—</div><div class="stat-foot" id="grid-foot">Échange avec le réseau</div></article>
+  </section>
+  <div class="middle-grid">
+    <section class="flow-card" aria-labelledby="flow-title"><div class="section-head"><h2 id="flow-title">Les flux maintenant</h2><span id="update-label">Simulation · toutes les 2 s</span></div>
+      <div class="flow-canvas" id="flow-canvas">
+        <svg class="flow-lines" viewBox="0 0 680 260" preserveAspectRatio="none" aria-hidden="true"><path class="track" d="M136 108V171Q136 193 160 193H297M544 108V171Q544 193 520 193H383"/><path id="solar-line" class="flow solar-flow" d="M136 108V171Q136 193 160 193H297"/><path id="grid-line" class="flow grid-flow" d="M544 108V171Q544 193 520 193H383"/></svg>
+        <div class="flow-node solar-node"><span class="node-icon"><svg><use href="#i-sun"/></svg></span><b>Solaire</b><strong id="flow-solar">—</strong></div>
+        <div class="flow-node grid-node"><span class="node-icon"><svg><use href="#i-grid"/></svg></span><b>Réseau</b><strong id="flow-grid">—</strong></div>
+        <div class="flow-node house-node"><span class="node-icon"><svg><use href="#i-home"/></svg></span><b>Maison</b><strong id="flow-home">—</strong></div>
+        <span class="path-caption" id="solar-caption">Solaire utilisé</span><span class="path-caption right" id="grid-caption">Surplus injecté</span>
+      </div>
+      <div class="flow-footer"><div><span class="tiny-square mint"></span><span id="flow-summary">—</span></div><span id="flow-direction">—</span></div>
+    </section>
+    <section class="autonomy-card" aria-labelledby="autonomy-title"><div class="section-head"><h2 id="autonomy-title">Couverture solaire</h2><svg><use href="#i-sun"/></svg></div><div class="gauge" id="gauge"><div><strong id="autonomy">—</strong><span>de la consommation<br>en cet instant</span></div></div><div class="coverage-detail"><span>Solaire consommé sur place</span><strong id="self-power">—</strong></div><div class="coverage-detail"><span>Complément du réseau</span><strong id="import-power">—</strong></div></section>
+  </div>
+  <section class="panel history-panel" id="history" aria-labelledby="history-title">
+    <div class="section-head history-heading"><div><h2 id="history-title">L’énergie dans le temps</h2><p>Énergie par barre · kWh</p></div><div class="granularity" role="group" aria-label="Durée représentée par chaque barre"><button data-granularity="minute">Minute</button><button data-granularity="quarter">15 min</button><button class="selected" data-granularity="hour">Heure</button><button data-granularity="day">Jour</button><button data-granularity="month">Mois</button><button data-granularity="year">Année</button></div></div>
+    <div class="chart-toolbar"><div class="chart-device-tabs" role="group" aria-label="Appareil dans le graphique"><button class="selected" data-metric="home">Maison</button><button data-metric="pool">Piscine</button><button data-metric="heatpump">PAC</button><button data-metric="waterheater">Chauffe-eau</button></div><div class="date-controls"><button id="previous-date" aria-label="Période précédente">‹</button><input type="date" id="chart-date" aria-label="Date du graphique"><select id="chart-hour" aria-label="Heure du graphique" hidden></select><button id="next-date" aria-label="Période suivante">›</button></div></div>
+    <div class="chart-overview"><div><span id="chart-metric-label">Consommation</span><strong id="chart-total">—</strong></div><div id="solar-total-wrap"><span>Production solaire</span><strong id="chart-solar-total">—</strong></div><div class="chart-legend"><span><i class="tiny-square blue"></i>Consommation</span><span id="solar-legend"><i class="tiny-square amber"></i>Solaire</span></div></div>
+    <div class="chart-container" id="chart" aria-live="polite"></div><div class="chart-tooltip" id="chart-tooltip" role="status" hidden></div>
+    <div class="chart-note"><span id="chart-note">Données de démonstration</span><button id="refresh-history">Actualiser</button></div>
+  </section>
+  <section id="devices" class="devices-section" aria-labelledby="devices-title"><div class="section-head"><div><h2 id="devices-title">Mes appareils</h2><p>Déjà inclus dans la consommation maison</p></div><span class="secondary-label">PUISSANCE INSTANTANÉE</span></div><div class="device-grid" id="device-grid"></div></section>
+  <section id="access" class="access-section" aria-labelledby="access-title"><div class="section-head"><h2 id="access-title">Accès maison</h2><span class="secondary-label">CONTACTS SECS</span></div>
+    <div class="access-grid access-grid-v2">
+      <article class="access-card gate-card"><div class="access-card-head"><span class="device-icon"><svg><use href="#i-gate"/></svg></span><div><h3>Portail</h3><p id="gate-status">Position inconnue · sans capteur</p></div><span class="access-ip" id="gate-ip">192.168.1.114</span></div>
+        <div class="gate-modes"><button class="gate-mode" data-pulse="gate" data-gate-mode="car"><strong>Voiture <span aria-hidden="true">↗</span></strong><span>Une impulsion de 0,5 s</span><small>Le portail gère sa fermeture</small></button><button class="gate-mode" data-pulse="gate" data-gate-mode="pedestrian"><strong>Piéton <span aria-hidden="true">↗</span></strong><span>Trois impulsions de 0,5 s</span><small>À 0 s, 5 s, puis 35 s</small></button></div>
+        <p class="access-hint" id="gate-controller-hint" hidden>Le mode piéton nécessite le script portail, à relier dans les réglages.</p>
+        <div class="gate-progress" id="gate-progress" hidden><p id="gate-progress-text" role="status"></p><button id="cancel-gate-sequence" hidden>Annuler les impulsions restantes</button></div>
+      </article>
+      <article class="access-card garage-card"><span class="device-icon"><svg><use href="#i-garage"/></svg></span><div><h3>Garage</h3><p id="garage-status">Position inconnue · sans capteur</p><span class="access-ip" id="garage-ip">192.168.1.10</span></div><button class="pulse-button" data-pulse="garage">Impulsion <svg><use href="#i-arrow"/></svg></button></article>
+    </div>
+    <article class="virtual-card"><span class="device-icon"><svg><use href="#i-device"/></svg></span><div class="virtual-content"><h3 id="virtual-title">Recharge VE</h3><strong id="virtual-value">État inconnu</strong><p id="virtual-status">En attente de lecture sur le Shelly du garage</p></div><button class="secondary-button" data-settings>Réglages</button></article>
+  </section>
+  <footer><span>Maison · Énergie</span><button id="download-html"><svg><use href="#i-download"/></svg>Télécharger l’interface HTML</button><a href="installation.zip" download>Kit d’installation</a></footer>
+</main>
+<dialog id="settings-dialog" class="settings-dialog"><form id="settings-form"><div class="dialog-header"><div><span class="eyebrow">MA MAISON</span><h2>Relier mes équipements</h2></div><button type="button" class="icon-button" data-close aria-label="Fermer les réglages">×</button></div><div class="dialog-body">
+  <div class="connection-hint" id="connection-hint">Les mesures en direct sont lues sur votre réseau Wi-Fi. L’historique est enregistré par votre Shelly qui accepte les scripts, même quand ce tableau de bord est fermé.</div>
+  <fieldset><legend>1. Les compteurs</legend><p class="help">Les IP sont préremplies. Vérifiez les canaux : 0 correspond à la première voie, 1 à la seconde.</p><div id="meter-configs"></div><button type="button" class="secondary-button" id="test-shelly">Tester les mesures (lecture seule)</button><pre id="diagnostics" hidden></pre><label class="check-row"><input type="checkbox" id="mapping-confirmed">J’ai vérifié l’affectation des canaux et le sens des mesures.</label></fieldset>
+  <fieldset><legend>2. La mesure « maison »</legend><label>Emplacement de la pince<select id="topology"><option value="unknown">À confirmer</option><option value="load">Elle mesure toute la consommation de la maison</option><option value="grid">Elle mesure l’échange réseau (positif = achat)</option></select></label><p class="help">Ce choix permet de calculer correctement le surplus. Les appareils ne sont pas ajoutés à nouveau au total maison.</p></fieldset>
+  <fieldset><legend>3. L’historique Google Sheets</legend><label>Adresse de l’application Google Apps Script<input type="url" id="sheets-url" placeholder="https://script.google.com/macros/s/…/exec" autocomplete="off"></label><label>Clé de lecture<input type="password" id="read-token" autocomplete="off" placeholder="La clé READ_TOKEN créée dans Apps Script"></label><p class="help">Collecte toutes les 5 secondes, une ligne par minute, envoi groupé toutes les 5 minutes. Minute : 30 jours ; 15 min et heure : 2 ans ; résumés journaliers conservés.</p><a class="inline-link" href="installation.zip" download>Télécharger le collecteur et le guide</a></fieldset>
+  <fieldset><legend>4. Portail et garage</legend><p class="help">Portail : impulsion fixée à 0,5 seconde. Le mode voiture envoie une seule impulsion, puis le portail gère sa fermeture. Vérifiez le canal de chaque relais.</p><div id="relay-configs"></div><label class="check-row"><input type="checkbox" id="relay-confirmed">Ces relais sont bien les contacts secs des motorisations ; leur canal et leur arrêt automatique sont vérifiés.</label>
+    <h3 class="settings-subtitle">Séquence piéton sur le Shelly</h3><p class="help">Le script portail envoie les trois impulsions, même si cette page est fermée. Installez-le sur le Shelly du portail s’il accepte les scripts, sinon sur un autre Shelly compatible de la maison.</p>
+    <label>Adresse du script portail<input type="url" id="gate-controller-url" placeholder="http://IP_DU_SHELLY/script/ID/gate" autocomplete="off"></label><label>Clé privée du portail<input type="password" id="gate-controller-token" autocomplete="off" placeholder="Même clé dans le script portail"></label><button type="button" class="secondary-button" id="generate-gate-token">Générer une clé</button><p class="help key-help">Cette clé reste dans vos réglages. Copiez-la dans le script portail du kit.</p><a class="inline-link" href="installation.zip" download>Télécharger le script portail et le guide</a>
+  </fieldset>
+  <fieldset><legend>5. Mon composant virtuel</legend><label class="check-row"><input type="checkbox" id="virtual-enabled">Afficher ce composant dans le tableau de bord</label><div class="virtual-settings"><label>Nom à afficher<input id="virtual-name" placeholder="Recharge VE" maxlength="80"></label><label>IP du Shelly qui le porte<input id="virtual-ip" placeholder="192.168.1.10" autocomplete="off"></label><label>Identifiant complet<input id="virtual-component" placeholder="boolean:200" autocomplete="off"></label><label>Unité facultative (nombre ou texte)<input id="virtual-unit" placeholder="W, °C…" maxlength="20"></label><label>Libellé quand faux (OFF)<input id="virtual-false-label" placeholder="Recharge VE OFF" maxlength="80"></label><label>Libellé quand vrai (ON)<input id="virtual-true-label" placeholder="Recharge VE On" maxlength="80"></label></div><p class="help">Recharge VE est préconfiguré sur le Shelly du garage. L’état est lu toutes les 2 secondes en direct. Les libellés s’appliquent aux booléens ; l’unité concerne les nombres et les textes.</p></fieldset>
+  <div class="form-message" id="form-message" role="status"></div>
+  </div><div class="dialog-footer"><button type="button" class="secondary-button" id="demo-mode">Voir la démo</button><button class="primary-button" type="submit">Enregistrer et passer en direct</button></div></form></dialog>
+<dialog class="confirm-dialog" id="pulse-dialog"><h2 id="pulse-title">Envoyer une impulsion ?</h2><p id="pulse-description"></p><label class="check-row" id="gate-closed-row" hidden><input type="checkbox" id="gate-closed">Le portail est actuellement fermé.</label><div class="dialog-footer"><button class="secondary-button" id="cancel-pulse">Annuler</button><button class="primary-button" id="confirm-pulse">Envoyer l’impulsion</button></div></dialog>
+<div class="toast" id="toast" role="status" hidden></div>
+<script src="energy-core.js"></script><script src="access.js"></script><script src="app.js"></script>
+</body></html>

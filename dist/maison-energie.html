@@ -1,0 +1,543 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#122323"><meta name="description" content="Les flux d’énergie de votre maison, vos appareils Shelly et votre historique photovoltaïque.">
+<title>Maison · Énergie</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23122323'/%3E%3Cpath d='M6 16 16 7l10 9v10H6Z' fill='none' stroke='%2371e2ba' stroke-width='2'/%3E%3Cpath d='m17 13-5 7h4l-1 5 6-8h-4Z' fill='%2371e2ba'/%3E%3C/svg%3E">
+<style>:root{color-scheme:light;--ink:#172c32;--muted:#65747b;--line:#e1e8e9;--bg:#f3f6f7;--mint:#73e4bc;--teal:#147b69;--blue:#468ca4;--solar:#ecb845;--grid:#c3acf2;font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:16px;line-height:1.45}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink)}button,input,select{font:inherit}button,a,input,select{-webkit-tap-highlight-color:transparent}button{cursor:pointer}button:disabled{cursor:not-allowed;opacity:.5}button,a{touch-action:manipulation}a{color:inherit}svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,rect:focus-visible{outline:3px solid #209d87;outline-offset:4px}button{border:0}h1,h2,h3,p{margin:0}h1{font-size:clamp(1.5rem,2.2vw,2rem);font-weight:600;letter-spacing:-.035em;line-height:1.25}h2{font-size:1.05rem;font-weight:650;letter-spacing:-.02em}h3{font-size:1rem;font-weight:600}.icon-sprite{position:absolute;width:0;height:0;overflow:hidden}[hidden]{display:none!important}.sidebar{background:#122b2d;color:#d0dadd;width:224px;position:fixed;inset:0 auto 0 0;padding:36px 20px 24px;display:flex;flex-direction:column;z-index:5}.brand{display:flex;align-items:center;gap:11px;text-decoration:none;font-size:1.55rem;letter-spacing:-.04em;font-weight:600;color:#fff;padding:0 12px}.brand-mark{display:grid;place-items:center;background:#204440;color:var(--mint);width:40px;height:44px;border-radius:12px}.brand-mark svg{width:26px;height:26px}.brand-sub{font-size:.75rem;display:block;letter-spacing:.19em;font-weight:500;color:#adc0bd;margin-top:1px}.side-label{font-size:.75rem;letter-spacing:.12em;color:#a7bcbb;margin:54px 12px 17px}.nav-item{display:flex;gap:12px;align-items:center;padding:13px 12px;border-radius:8px;text-decoration:none;font-size:.875rem;color:inherit;background:none;width:100%;text-align:left;margin:5px 0}.nav-item svg{width:19px;height:19px}.nav-item:hover{background:#1c393b}.nav-item.active{background:#234845;color:#a7f0d5}.sidebar-bottom{margin-top:auto}.home-pill{display:flex;align-items:center;gap:10px;border-top:1px solid #345052;padding:22px 10px;font-size:.875rem}.home-pill small{display:block;color:#b6c7c6;font-size:.75rem}.avatar{border-radius:50%;width:32px;height:32px;display:grid;place-items:center;background:#35585a;color:#e4f8f3}main{max-width:1770px;margin-left:224px;padding:36px 40px 14px}.page-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;gap:16px}.eyebrow{font-size:.75rem;letter-spacing:.13em;font-weight:650;color:var(--muted);margin-bottom:8px}.header-actions{display:flex;align-items:center;gap:16px}.mode-badge{font-size:.75rem;border:1px solid #dce4e6;border-radius:20px;padding:7px 11px;background:#fff;white-space:nowrap}.mode-badge.connected{color:#09644e;background:#e4f7ef;border-color:#c6e7d7}.icon-button{width:38px;height:38px;display:grid;place-items:center;background:#fff;border:1px solid var(--line);border-radius:9px;font-size:1.5rem;color:var(--ink);flex-shrink:0}.demo-banner{display:flex;justify-content:space-between;align-items:center;gap:12px;background:#e6edf0;border-radius:8px;padding:10px 16px;font-size:.8rem;color:#51646e;margin-bottom:24px}.demo-banner b{font-weight:600}.demo-banner button{background:none;color:#265865;font-size:.8rem;font-weight:650;white-space:nowrap;padding:5px 0}.stat-grid{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:20px;margin-bottom:22px}.stat{background:#fff;border:1px solid var(--line);padding:21px 24px 19px;border-radius:12px;min-width:0}.main-stat{border-top:3px solid #2a8a7a;padding-top:19px}.stat-label{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:.85rem;color:#52666d}.stat-label>span:first-child{display:flex;align-items:center;gap:9px}.stat-label svg{width:18px;height:18px}.live-label{font-size:.75rem;font-weight:650;letter-spacing:.07em;color:#456f61}.stat-value{font-size:clamp(2rem,3vw,2.85rem);font-weight:600;letter-spacing:-.045em;margin:12px 0 7px;line-height:1.1;font-variant-numeric:tabular-nums}.stat-value small{font-size:1.1rem;font-weight:400;letter-spacing:0;color:#74848a;padding-left:5px}.stat-foot{font-size:.75rem;color:var(--muted);min-height:18px}.solar-color{color:#aa7707}.grid-color{color:#8964b8}.middle-grid{display:grid;grid-template-columns:minmax(0,1.9fr) minmax(230px,1fr);gap:22px;margin-bottom:28px}.flow-card{background:#142d31;color:#eff7f7;border-radius:13px;overflow:hidden;min-width:0;padding:22px 24px 0}.section-head{display:flex;justify-content:space-between;align-items:center;gap:14px}.section-head p{color:var(--muted);font-size:.78rem;margin-top:4px}.flow-card .section-head>span{font-size:.75rem;color:#b3c7c9}.flow-canvas{position:relative;height:260px;max-width:760px;margin:0 auto}.flow-lines{position:absolute;inset:0;width:100%;height:100%}.track{stroke:#365156;stroke-width:2}.flow{stroke-width:3;stroke-dasharray:3 13;animation:flow 1.6s linear infinite}.solar-flow{stroke:var(--solar)}.grid-flow{stroke:var(--mint);animation-direction:reverse}.flow.stopped{opacity:.18;animation-play-state:paused}.flow-node{position:absolute;display:flex;align-items:center;flex-direction:column;min-width:95px;transform:translateX(-50%);gap:3px}.flow-node b{font-size:.75rem;font-weight:400;color:#c0d1d2}.flow-node strong{font-size:1.08rem;font-weight:550;font-variant-numeric:tabular-nums}.node-icon{display:grid;place-items:center;width:49px;height:49px;border:1px solid #486267;border-radius:50%;background:#1c373a;margin-bottom:4px}.node-icon svg{width:25px;height:25px}.solar-node{left:20%;top:23px;color:var(--solar)}.solar-node .node-icon{color:var(--solar);border-color:#6b6142;background:#393e30}.grid-node{left:80%;top:23px;color:var(--mint)}.grid-node .node-icon{color:var(--mint);background:#1c453d;border-color:#376451}.house-node{left:50%;top:152px}.house-node .node-icon{width:76px;height:76px;border-radius:21px;box-shadow:0 0 0 6px #193a3c;border-color:#528a7a;background:#214e45;color:#a3f1d1}.house-node .node-icon svg{width:36px;height:36px}.house-node b{margin-top:3px}.house-node strong{display:none}.path-caption{position:absolute;left:2%;top:143px;font-size:.75rem;color:#d6c592;max-width:34%;background:#142d31;padding:0 5px}.path-caption.right{left:auto;right:2%;color:#9dddc5}.flow-footer{border-top:1px solid #365053;padding:15px 0;display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:.75rem;color:#c2d4d3;margin-top:5px}.flow-footer>div{display:flex;gap:7px;align-items:center}.tiny-square{display:inline-block;width:8px;height:8px;border-radius:2px;flex-shrink:0}.mint{background:var(--mint)}.amber{background:var(--solar)}.blue{background:var(--blue)}.autonomy-card{background:#fff;border:1px solid var(--line);border-radius:13px;padding:22px 24px}.autonomy-card .section-head svg{color:#97a8a5;width:19px}.gauge{--coverage:100%;width:170px;height:170px;background:conic-gradient(from 225deg,#4ab995 0 calc(var(--coverage)*.75),#edf2f2 calc(var(--coverage)*.75) 75%,transparent 75%);border-radius:50%;margin:26px auto -8px;padding:11px;transform:rotate(0deg)}.gauge>div{border-radius:50%;background:#fff;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;padding-bottom:3px}.gauge strong{font-size:2.25rem;letter-spacing:-.045em;font-weight:550}.gauge span{text-align:center;font-size:.75rem;color:var(--muted)}.coverage-detail{display:flex;justify-content:space-between;gap:10px;font-size:.75rem;padding:10px 0;border-bottom:1px solid #edf0f0;color:var(--muted)}.coverage-detail:last-child{border:0}.coverage-detail strong{color:#203a3f;font-weight:600;white-space:nowrap}.panel{background:#fff;border:1px solid var(--line);border-radius:12px;padding:23px 24px;margin-bottom:28px;position:relative}.granularity{display:flex;gap:3px;background:#f1f4f5;padding:4px;border-radius:8px;flex-wrap:wrap}.granularity button{background:transparent;color:#65777d;font-size:.75rem;border-radius:5px;padding:6px 9px}.granularity button.selected{background:#fff;color:#1a423e;box-shadow:0 1px 4px #1a393312;font-weight:650}.chart-toolbar{display:flex;justify-content:space-between;gap:14px;margin-top:25px;align-items:center;border-bottom:1px solid var(--line);padding-bottom:14px}.chart-device-tabs{display:flex;gap:6px;flex-wrap:wrap}.chart-device-tabs button{font-size:.75rem;border-radius:5px;background:transparent;color:#697980;padding:5px 9px}.chart-device-tabs button.selected{background:#eaf5f0;color:#156653;font-weight:650}.date-controls{display:flex;align-items:center;gap:5px}.date-controls button{font-size:1.2rem;background:none;color:#728187;padding:0 7px}.date-controls input,.date-controls select{border:1px solid var(--line);border-radius:5px;background:#fff;color:#445b64;font-size:.75rem;padding:5px;max-width:132px}.chart-overview{display:flex;gap:32px;margin:20px 0 8px;align-items:end}.chart-overview>div>span{display:block;font-size:.75rem;color:var(--muted)}.chart-overview strong{font-size:1.55rem;font-weight:550;letter-spacing:-.025em;margin-top:3px;display:block;font-variant-numeric:tabular-nums}.chart-overview strong small{font-size:.85rem;font-weight:400;margin-left:3px;color:#77868b}.chart-legend{display:flex;gap:16px;justify-content:flex-end;margin-left:auto}.chart-legend>span{display:flex!important;align-items:center;gap:6px}.chart-container{height:224px;min-height:224px;position:relative;overflow:visible}.chart-container svg{height:100%;width:100%;stroke:none;overflow:visible}.chart-container svg text{font-family:inherit;font-size:12px;fill:#66777e}.chart-container svg line{stroke:#edf0f1;stroke-width:1}.chart-container .bar-home{fill:var(--blue)}.chart-container .bar-solar{fill:var(--solar)}.chart-container .hit{fill:transparent;cursor:crosshair;outline-offset:-3px}.chart-empty{height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:10px;color:#6c7b83;padding:18px;font-size:.875rem}.chart-empty b{color:#344e55;font-weight:550}.chart-empty button{color:var(--teal);background:none;font-weight:650}.chart-note{display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:.75rem;color:var(--muted);margin-top:6px}.chart-note button{background:none;color:#377765;font-size:.75rem}.chart-tooltip{position:absolute;background:#123135;color:#fff;font-size:.75rem;padding:12px 15px;border-radius:8px;box-shadow:0 5px 20px #122a3028;pointer-events:none;z-index:3;max-width:250px;white-space:pre-line}.devices-section{margin-bottom:26px}.secondary-label{font-size:.75rem;color:#65777c;letter-spacing:.07em}.device-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:15px}.device-card{border:1px solid var(--line);background:#fff;border-radius:10px;padding:17px;display:grid;grid-template-columns:38px 1fr auto;align-items:center;gap:11px;min-width:0}.device-icon{width:38px;height:40px;background:#f0f5f5;color:#57767c;display:grid;place-items:center;border-radius:9px;flex-shrink:0}.device-icon svg{width:21px;height:21px}.device-card h3{font-size:.8rem}.device-card p{color:#64777f;font-size:.75rem;margin-top:4px}.device-value{font-size:1.1rem;font-weight:600;white-space:nowrap;font-variant-numeric:tabular-nums}.device-value small{font-size:.75rem;font-weight:400;color:#65747b}.device-card .mini-track{grid-column:2/4;height:3px;background:#edf2f2;margin-top:2px;border-radius:2px;overflow:hidden}.mini-track>span{display:block;width:0;height:100%;background:#67ac9b}.access-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:15px}.access-card{display:flex;align-items:center;gap:13px;border:1px solid var(--line);border-radius:10px;background:#fff;padding:17px}.access-card h3{font-size:.875rem}.access-card p{font-size:.75rem;color:#738088;margin-top:3px}.pulse-button{display:flex;align-items:center;gap:8px;padding:8px 11px;border:1px solid #dce6e5;border-radius:6px;background:#fff;color:#365f59;font-size:.75rem;margin-left:auto;white-space:nowrap}.pulse-button svg{width:15px;height:15px}footer{display:flex;gap:18px;align-items:center;margin-top:28px;padding:17px 0;border-top:1px solid var(--line);font-size:.75rem;color:#6b7d83}footer>span{margin-right:auto}footer button{display:flex;align-items:center;gap:7px;background:none;color:inherit;font-size:inherit}footer button svg{width:15px;height:15px}footer a{text-decoration:none}section{scroll-margin-top:20px}dialog{border:0;padding:0;box-shadow:0 20px 80px #001b3d40;color:var(--ink);border-radius:16px}dialog::backdrop{background:#061f2c88;backdrop-filter:blur(3px)}.settings-dialog{width:min(790px,calc(100vw - 24px));max-height:90vh}.settings-dialog form{display:flex;flex-direction:column;max-height:90vh}.dialog-header{display:flex;justify-content:space-between;align-items:center;padding:24px 26px;border-bottom:1px solid var(--line)}.dialog-header h2{font-size:1.35rem}.dialog-body{padding:23px 26px;overflow:auto}.connection-hint{padding:14px 16px;background:#edf5f2;border-radius:8px;color:#356658;font-size:.875rem;margin-bottom:24px}fieldset{border:0;padding:0 0 24px;margin:0 0 22px;border-bottom:1px solid var(--line)}legend{font-size:1rem;font-weight:650;margin-bottom:12px}label{display:flex;flex-direction:column;gap:7px;font-size:.875rem;margin-bottom:14px}input,select{min-width:0;width:100%;border:1px solid #cdd9da;border-radius:7px;padding:9px 10px;background:#fff;color:var(--ink);font-size:.875rem}input[type=checkbox]{width:17px;height:17px;accent-color:var(--teal);flex-shrink:0}input:disabled{background:#f4f6f6}.help{font-size:.8rem;color:#62757a;margin:0 0 16px;line-height:1.6}.config-row{display:grid;grid-template-columns:1.15fr 1.4fr 1fr .65fr .6fr;gap:8px;align-items:center;margin-bottom:9px}.config-row .row-name{font-size:.8rem;font-weight:600}.config-row label{margin:0;font-size:.75rem;align-items:center;display:flex;flex-direction:row}.config-row input,.config-row select{font-size:.8rem;padding:8px 6px}.config-head{display:grid;grid-template-columns:1.15fr 1.4fr 1fr .65fr .6fr;gap:8px;font-size:.75rem;color:#687d84;margin-bottom:8px}.check-row{flex-direction:row;align-items:flex-start;font-size:.8rem;margin-top:16px;gap:9px}.check-row input{margin-top:3px}.secondary-button,.primary-button{padding:10px 14px;border-radius:7px;font-size:.85rem;font-weight:550}.primary-button{background:#166f5b;color:white}.primary-button:hover{background:#0c5847}.secondary-button{background:#edf3f2;color:#345c55}.dialog-footer{display:flex;justify-content:flex-end;align-items:center;gap:12px;padding:18px 26px;border-top:1px solid var(--line);background:#fff}.inline-link{color:var(--teal);font-size:.875rem}.form-message{color:#9b421d;font-size:.85rem;white-space:pre-line}pre{max-height:260px;overflow:auto;white-space:pre-wrap;font-size:.75rem;padding:15px;background:#edf3f2;border-radius:8px}.confirm-dialog{width:min(430px,calc(100vw - 30px));padding:24px}.confirm-dialog h2{font-size:1.2rem}.confirm-dialog p{font-size:.9rem;color:#62777e;margin:16px 0;line-height:1.6}.confirm-dialog .dialog-footer{padding:16px 0 0}.toast{position:fixed;left:50%;bottom:28px;transform:translateX(-50%);background:#163c35;color:#fff;padding:13px 20px;border-radius:9px;box-shadow:0 5px 30px #00191d30;z-index:30;max-width:calc(100vw - 32px);font-size:.85rem}.offline{color:#927266}.error-banner{background:#fff0e5;color:#8b4d25}@keyframes flow{to{stroke-dashoffset:-32}}@media(prefers-reduced-motion:reduce){*{animation:none!important;scroll-behavior:auto!important}}
+@media(min-width:1500px){main{padding:40px 54px}.flow-canvas{height:280px}.flow-lines{max-height:260px;top:10px}.house-node{top:162px}.solar-node,.grid-node{top:33px}.path-caption{top:153px}.gauge{margin-top:36px;margin-bottom:3px}}
+@media(max-width:1180px){.sidebar{width:190px;padding:30px 12px}main{margin-left:190px;padding:28px 24px}.brand{font-size:1.4rem}.nav-item{font-size:.8rem;gap:9px}.stat-grid{gap:13px}.stat{padding:19px 17px}.main-stat{padding-top:17px}.stat-label{font-size:.75rem}.live-label{display:none}.middle-grid{gap:16px;grid-template-columns:minmax(0,1.7fr) minmax(210px,1fr)}.flow-card,.autonomy-card{padding:20px 19px 0}.autonomy-card{padding-bottom:14px}.flow-card .section-head>span{font-size:.75rem}.device-card{grid-template-columns:30px 1fr;gap:10px}.device-value{grid-column:2}.device-card .mini-track{grid-column:2}.device-icon{width:32px;height:36px}.access-card{gap:10px}.access-card p{max-width:135px}.history-heading{align-items:start}.granularity button{padding:6px 7px}.chart-legend{gap:10px}.flow-footer{font-size:.75rem}.section-head h2{font-size:1rem}}
+@media(max-width:900px){.sidebar{width:76px;padding:25px 10px}.brand{padding:0;justify-content:center}.brand>span:last-child,.side-label,.home-pill,.nav-item:not(.active){font-size:0}.brand-mark{width:43px}.side-label{margin:30px 0 0}.nav-item{font-size:0!important;justify-content:center;padding:14px}.nav-item svg{width:22px;height:22px}.sidebar-bottom{margin-top:auto}main{margin-left:76px;padding:26px 22px}.stat-grid{gap:12px}.stat-label{font-size:.75rem}.stat-value{font-size:2.2rem}.stat-value small{font-size:.95rem}.stat-foot{font-size:.75rem}.middle-grid{grid-template-columns:minmax(0,1.55fr) minmax(200px,1fr)}.flow-card .section-head>span{display:none}.flow-footer{flex-direction:column;align-items:flex-start;gap:5px}.path-caption{font-size:.75rem}.history-heading{flex-direction:column;gap:15px}.granularity{width:100%;justify-content:space-between}.granularity button{flex:1}.chart-toolbar{align-items:start;flex-direction:column;margin-top:16px;gap:12px}.date-controls{align-self:flex-end}.chart-overview{gap:22px}.chart-legend{flex-direction:column;gap:5px}.access-card{flex-wrap:wrap}.pulse-button{margin-left:45px}.device-grid{gap:12px}.device-card{padding:13px}.secondary-label{font-size:.75rem}}
+@media(max-width:620px){.sidebar{position:static;width:100%;height:auto;padding:16px 18px;flex-direction:row;align-items:center;justify-content:space-between}.brand{gap:9px}.brand>span:last-child{display:block;font-size:1.2rem}.brand-sub{font-size:.75rem}.brand-mark{width:32px;height:37px;border-radius:8px}.brand-mark svg{width:22px;height:22px}.sidebar nav{display:flex;gap:5px}.nav-item{padding:9px;margin:0}.nav-item svg{width:19px;height:19px}.sidebar-bottom,.side-label{display:none}main{margin-left:0;padding:22px 16px 10px}.page-header{margin-bottom:17px;gap:10px}.header-actions{gap:8px}.mode-badge{font-size:.75rem;padding:6px 8px}.header-actions .icon-button{height:33px;width:33px}.eyebrow{font-size:.75rem}h1{font-size:1.47rem}.demo-banner{align-items:flex-start;flex-direction:column;font-size:.75rem;gap:6px;padding:12px 13px;margin-bottom:18px}.demo-banner button{font-size:.75rem}.stat-grid{grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px}.main-stat{grid-column:1/3;padding:18px 20px;display:grid;grid-template-columns:1fr auto;gap:4px}.main-stat .stat-label{grid-column:1;justify-content:flex-start}.main-stat .stat-value{grid-column:2;grid-row:1/3;align-self:center;margin:0;font-size:2.5rem}.main-stat .stat-foot{grid-column:1}.main-stat .live-label{display:none}.stat{padding:17px 14px}.main-stat{padding:18px}.stat-label{font-size:.75rem;line-height:1.3}.stat-label>span:first-child{gap:6px}.stat-value{font-size:2.1rem;margin-top:13px}.stat-foot{font-size:.75rem}.middle-grid{grid-template-columns:1fr;gap:15px;margin-bottom:20px}.flow-card{padding:20px 20px 0}.flow-card .section-head>span{display:block}.flow-canvas{height:265px}.flow-footer{flex-direction:row;font-size:.75rem}.path-caption{font-size:.75rem}.autonomy-card{display:grid;grid-template-columns:110px 1fr;gap:0 20px;padding:17px 20px}.autonomy-card .section-head{grid-column:2;align-self:end}.autonomy-card .section-head svg{display:none}.gauge{width:108px;height:108px;padding:7px;margin:8px 0 0;grid-column:1;grid-row:1/4;align-self:center}.gauge>div{padding-bottom:3px}.gauge strong{font-size:1.6rem}.gauge span{font-size:.75rem}.coverage-detail{grid-column:2;font-size:.75rem;padding:7px 0}.panel{padding:20px 16px;margin-bottom:22px}.granularity{gap:1px;padding:3px}.granularity button{font-size:.75rem;padding:6px 2px}.chart-toolbar{gap:12px}.chart-device-tabs{width:100%;justify-content:space-between;gap:2px}.chart-device-tabs button{font-size:.75rem;padding:5px 7px}.date-controls{align-self:center}.chart-overview{gap:20px;margin-top:17px;flex-wrap:wrap}.chart-overview strong{font-size:1.38rem}.chart-overview>div>span{font-size:.75rem}.chart-legend{flex-direction:row;justify-content:flex-start;width:100%;margin:0;gap:18px}.chart-container{height:215px}.chart-note{align-items:start;font-size:.75rem}.device-grid{grid-template-columns:1fr}.device-card{grid-template-columns:36px 1fr auto;padding:15px;gap:12px}.device-value{grid-column:3}.device-card .mini-track{grid-column:2/4}.device-card h3{font-size:.9rem}.device-card p{font-size:.75rem}.device-value{font-size:1.15rem}.devices-section .section-head>.secondary-label{display:none}.access-grid{grid-template-columns:1fr;gap:12px}.access-card{padding:16px;flex-wrap:nowrap}.access-card p{max-width:none}.pulse-button{margin-left:auto}.access-card h3{font-size:.9rem}footer{flex-wrap:wrap;gap:14px;font-size:.75rem}footer>span{width:100%}.dialog-header{padding:20px}.dialog-header h2{font-size:1.12rem}.dialog-body{padding:20px}.dialog-footer{padding:15px;flex-wrap:wrap}.config-head{display:none}.config-row{grid-template-columns:1.5fr 1fr 1fr;gap:8px;border-bottom:1px solid #edf0f1;padding-bottom:13px;margin-bottom:13px}.config-row .row-name{grid-column:1/4}.config-row input[data-field=ip]{grid-column:1/3}.config-row label{font-size:.75rem}.config-row select[data-field=channel]{grid-column:1}.connection-hint{font-size:.8rem}.dialog-footer button{font-size:.78rem}input[type=date]{width:136px}}
+
+/* Portail et composant virtuel */
+.access-grid-v2{grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);align-items:start}.gate-card{display:block;padding:20px}.access-card-head{display:flex;gap:12px;align-items:center}.access-ip{font-size:.75rem;color:var(--muted);margin-left:auto}.gate-card .access-card-head p{max-width:none}.gate-modes{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:18px}.gate-mode{display:flex;flex-direction:column;align-items:stretch;text-align:left;border:1px solid #d5e5de;border-radius:8px;padding:13px;background:#f0f7f4;color:#215d4f;gap:4px;min-width:0}.gate-mode:hover:enabled{background:#e2f1e9}.gate-mode strong{display:flex;justify-content:space-between;gap:10px;font-size:.95rem;font-weight:650}.gate-mode>span{font-size:.875rem}.gate-mode small{font-size:.75rem;color:#59796d}.gate-progress{margin-top:15px;padding:12px;border-radius:7px;background:#eaf3f0;font-size:.875rem}.gate-progress button{background:none;color:#8c4528;font-size:.8rem;padding:9px 0 0;text-decoration:underline;text-underline-offset:3px}.access-hint{font-size:.8rem;color:var(--muted);margin-top:12px}.garage-card{min-height:108px;flex-wrap:wrap}.garage-card .access-ip{display:block;margin-top:7px}.virtual-card{margin-top:18px;border:1px solid var(--line);border-radius:10px;padding:18px;display:flex;align-items:center;gap:14px;background:#fff;min-width:0}.virtual-content{flex:1;min-width:0}.virtual-card h3{font-size:.875rem}.virtual-card strong{font-size:1.05rem;display:block;font-weight:550;margin-top:6px;overflow-wrap:anywhere;white-space:pre-wrap;max-height:160px;overflow:auto}.virtual-card p{font-size:.75rem;color:var(--muted);margin-top:5px}.settings-subtitle{margin:22px 0 10px;font-size:.95rem}.key-help{margin-top:9px}.virtual-settings{display:grid;grid-template-columns:1fr 1fr;gap:0 16px}@media(max-width:900px){.access-grid-v2{grid-template-columns:1fr}.access-card-head{flex-wrap:wrap}.access-card-head>.access-ip{margin-left:50px}.garage-card .pulse-button{margin-left:auto}}@media(max-width:430px){.gate-card{padding:16px}.gate-modes{gap:9px}.gate-mode{padding:10px}.gate-mode>span{font-size:.8rem}.virtual-card{flex-wrap:wrap}.virtual-card>.secondary-button{margin-left:52px}.virtual-settings{grid-template-columns:1fr}.access-card-head>.access-ip{margin-left:0;width:100%}}
+</style>
+</head>
+<body>
+<svg class="icon-sprite" aria-hidden="true"><defs>
+<symbol id="i-home" viewBox="0 0 24 24"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1Z"/></symbol>
+<symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5"/></symbol>
+<symbol id="i-grid" viewBox="0 0 24 24"><path d="m8 3-3 18m11-18 3 18M6 8h12M4 14h16M9 3h6M8 21l8-13m0 13L8 8"/></symbol>
+<symbol id="i-zap" viewBox="0 0 24 24"><path d="m13 2-9 12h7l-1 8 10-13h-7Z"/></symbol>
+<symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 3v17h17M9 16V9m5 7V5m5 11v-5"/></symbol>
+<symbol id="i-device" viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="3"/><path d="M9 7h6m-6 4h6m-4 6h2"/></symbol>
+<symbol id="i-settings" viewBox="0 0 24 24"><path d="M4 7h16M4 17h16"/><circle cx="9" cy="7" r="3"/><circle cx="15" cy="17" r="3"/></symbol>
+<symbol id="i-pool" viewBox="0 0 24 24"><path d="M2 17q3-3 6 0t6 0 6 0M2 21q3-3 6 0t6 0 6 0M6 14V4a2 2 0 0 1 4 0m3 10V4a2 2 0 0 1 4 0M6 7h7m-7 4h7"/></symbol>
+<symbol id="i-fan" viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"/><path d="M10 10C1 6 8 0 12 5l1 5m1 0c4-9 10-2 5 2l-5 1m0 1c9 4 2 10-2 5l-1-5m-1 0c-4 9-10 2-5-2l5-1"/></symbol>
+<symbol id="i-water" viewBox="0 0 24 24"><path d="M12 2S5 10 5 15a7 7 0 0 0 14 0c0-5-7-13-7-13Z"/><path d="M9 15a3 3 0 0 0 3 3"/></symbol>
+<symbol id="i-gate" viewBox="0 0 24 24"><path d="M3 21V4m18 17V4M3 7h18M3 18h18M7 7v11m5-11v11m5-11v11"/></symbol>
+<symbol id="i-garage" viewBox="0 0 24 24"><path d="m2 8 10-6 10 6v13H2ZM6 21V10h12v11M6 14h12M6 18h12"/></symbol>
+<symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14m-5-5 5 5-5 5"/></symbol>
+<symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12m-5-5 5 5 5-5M4 16v5h16v-5"/></symbol>
+</defs></svg>
+<aside class="sidebar">
+  <a class="brand" href="#overview"><span class="brand-mark"><svg><use href="#i-home"/></svg></span><span>Maison<span class="brand-sub">MON ÉNERGIE</span></span></a>
+  <div class="side-label">TABLEAU DE BORD</div>
+  <nav aria-label="Navigation principale">
+    <a class="nav-item active" href="#overview"><svg><use href="#i-zap"/></svg>Vue d’ensemble</a>
+    <a class="nav-item" href="#history"><svg><use href="#i-chart"/></svg>Historique</a>
+    <a class="nav-item" href="#devices"><svg><use href="#i-device"/></svg>Mes appareils</a>
+    <a class="nav-item" href="#access"><svg><use href="#i-gate"/></svg>Accès maison</a>
+  </nav>
+  <div class="sidebar-bottom"><div class="home-pill"><span class="avatar">G</span><span>Ma maison<small>Heure de Paris</small></span></div><button class="nav-item" data-settings><svg><use href="#i-settings"/></svg>Réglages</button></div>
+</aside>
+<main id="overview">
+  <header class="page-header"><div><div class="eyebrow" id="today-label">MA MAISON</div><h1>L’énergie, en un regard.</h1></div><div class="header-actions"><span class="mode-badge" id="mode-badge">Démonstration</span><button class="icon-button" data-settings aria-label="Ouvrir les réglages"><svg><use href="#i-settings"/></svg></button></div></header>
+  <div class="demo-banner" id="mode-banner"><span><b>Vous explorez une démonstration.</b> Les valeurs sont simulées.</span><button data-settings>Connecter mes Shelly <span aria-hidden="true">↗</span></button></div>
+  <section class="stat-grid" aria-label="Puissances instantanées">
+    <article class="stat main-stat"><div class="stat-label"><span><svg><use href="#i-home"/></svg>Consommation maison</span><span class="live-label" id="live-label">SIMULATION</span></div><div class="stat-value" id="home-power">—</div><div class="stat-foot" id="home-foot">Puissance instantanée</div></article>
+    <article class="stat"><div class="stat-label"><span><svg class="solar-color"><use href="#i-sun"/></svg>Production solaire</span></div><div class="stat-value" id="solar-power">—</div><div class="stat-foot" id="solar-foot">Panneaux photovoltaïques</div></article>
+    <article class="stat"><div class="stat-label"><span><svg class="grid-color"><use href="#i-grid"/></svg><span id="grid-title">Réseau électrique</span></span></div><div class="stat-value" id="grid-power">—</div><div class="stat-foot" id="grid-foot">Échange avec le réseau</div></article>
+  </section>
+  <div class="middle-grid">
+    <section class="flow-card" aria-labelledby="flow-title"><div class="section-head"><h2 id="flow-title">Les flux maintenant</h2><span id="update-label">Simulation · toutes les 2 s</span></div>
+      <div class="flow-canvas" id="flow-canvas">
+        <svg class="flow-lines" viewBox="0 0 680 260" preserveAspectRatio="none" aria-hidden="true"><path class="track" d="M136 108V171Q136 193 160 193H297M544 108V171Q544 193 520 193H383"/><path id="solar-line" class="flow solar-flow" d="M136 108V171Q136 193 160 193H297"/><path id="grid-line" class="flow grid-flow" d="M544 108V171Q544 193 520 193H383"/></svg>
+        <div class="flow-node solar-node"><span class="node-icon"><svg><use href="#i-sun"/></svg></span><b>Solaire</b><strong id="flow-solar">—</strong></div>
+        <div class="flow-node grid-node"><span class="node-icon"><svg><use href="#i-grid"/></svg></span><b>Réseau</b><strong id="flow-grid">—</strong></div>
+        <div class="flow-node house-node"><span class="node-icon"><svg><use href="#i-home"/></svg></span><b>Maison</b><strong id="flow-home">—</strong></div>
+        <span class="path-caption" id="solar-caption">Solaire utilisé</span><span class="path-caption right" id="grid-caption">Surplus injecté</span>
+      </div>
+      <div class="flow-footer"><div><span class="tiny-square mint"></span><span id="flow-summary">—</span></div><span id="flow-direction">—</span></div>
+    </section>
+    <section class="autonomy-card" aria-labelledby="autonomy-title"><div class="section-head"><h2 id="autonomy-title">Couverture solaire</h2><svg><use href="#i-sun"/></svg></div><div class="gauge" id="gauge"><div><strong id="autonomy">—</strong><span>de la consommation<br>en cet instant</span></div></div><div class="coverage-detail"><span>Solaire consommé sur place</span><strong id="self-power">—</strong></div><div class="coverage-detail"><span>Complément du réseau</span><strong id="import-power">—</strong></div></section>
+  </div>
+  <section class="panel history-panel" id="history" aria-labelledby="history-title">
+    <div class="section-head history-heading"><div><h2 id="history-title">L’énergie dans le temps</h2><p>Énergie par barre · kWh</p></div><div class="granularity" role="group" aria-label="Durée représentée par chaque barre"><button data-granularity="minute">Minute</button><button data-granularity="quarter">15 min</button><button class="selected" data-granularity="hour">Heure</button><button data-granularity="day">Jour</button><button data-granularity="month">Mois</button><button data-granularity="year">Année</button></div></div>
+    <div class="chart-toolbar"><div class="chart-device-tabs" role="group" aria-label="Appareil dans le graphique"><button class="selected" data-metric="home">Maison</button><button data-metric="pool">Piscine</button><button data-metric="heatpump">PAC</button><button data-metric="waterheater">Chauffe-eau</button></div><div class="date-controls"><button id="previous-date" aria-label="Période précédente">‹</button><input type="date" id="chart-date" aria-label="Date du graphique"><select id="chart-hour" aria-label="Heure du graphique" hidden></select><button id="next-date" aria-label="Période suivante">›</button></div></div>
+    <div class="chart-overview"><div><span id="chart-metric-label">Consommation</span><strong id="chart-total">—</strong></div><div id="solar-total-wrap"><span>Production solaire</span><strong id="chart-solar-total">—</strong></div><div class="chart-legend"><span><i class="tiny-square blue"></i>Consommation</span><span id="solar-legend"><i class="tiny-square amber"></i>Solaire</span></div></div>
+    <div class="chart-container" id="chart" aria-live="polite"></div><div class="chart-tooltip" id="chart-tooltip" role="status" hidden></div>
+    <div class="chart-note"><span id="chart-note">Données de démonstration</span><button id="refresh-history">Actualiser</button></div>
+  </section>
+  <section id="devices" class="devices-section" aria-labelledby="devices-title"><div class="section-head"><div><h2 id="devices-title">Mes appareils</h2><p>Déjà inclus dans la consommation maison</p></div><span class="secondary-label">PUISSANCE INSTANTANÉE</span></div><div class="device-grid" id="device-grid"></div></section>
+  <section id="access" class="access-section" aria-labelledby="access-title"><div class="section-head"><h2 id="access-title">Accès maison</h2><span class="secondary-label">CONTACTS SECS</span></div>
+    <div class="access-grid access-grid-v2">
+      <article class="access-card gate-card"><div class="access-card-head"><span class="device-icon"><svg><use href="#i-gate"/></svg></span><div><h3>Portail</h3><p id="gate-status">Position inconnue · sans capteur</p></div><span class="access-ip" id="gate-ip">192.168.1.114</span></div>
+        <div class="gate-modes"><button class="gate-mode" data-pulse="gate" data-gate-mode="car"><strong>Voiture <span aria-hidden="true">↗</span></strong><span>Une impulsion de 0,5 s</span><small>Le portail gère sa fermeture</small></button><button class="gate-mode" data-pulse="gate" data-gate-mode="pedestrian"><strong>Piéton <span aria-hidden="true">↗</span></strong><span>Trois impulsions de 0,5 s</span><small>À 0 s, 5 s, puis 35 s</small></button></div>
+        <p class="access-hint" id="gate-controller-hint" hidden>Le mode piéton nécessite le script portail, à relier dans les réglages.</p>
+        <div class="gate-progress" id="gate-progress" hidden><p id="gate-progress-text" role="status"></p><button id="cancel-gate-sequence" hidden>Annuler les impulsions restantes</button></div>
+      </article>
+      <article class="access-card garage-card"><span class="device-icon"><svg><use href="#i-garage"/></svg></span><div><h3>Garage</h3><p id="garage-status">Position inconnue · sans capteur</p><span class="access-ip" id="garage-ip">192.168.1.10</span></div><button class="pulse-button" data-pulse="garage">Impulsion <svg><use href="#i-arrow"/></svg></button></article>
+    </div>
+    <article class="virtual-card"><span class="device-icon"><svg><use href="#i-device"/></svg></span><div class="virtual-content"><h3 id="virtual-title">Recharge VE</h3><strong id="virtual-value">État inconnu</strong><p id="virtual-status">En attente de lecture sur le Shelly du garage</p></div><button class="secondary-button" data-settings>Réglages</button></article>
+  </section>
+  <footer><span>Maison · Énergie</span><button id="download-html"><svg><use href="#i-download"/></svg>Télécharger l’interface HTML</button><a href="installation.zip" download>Kit d’installation</a></footer>
+</main>
+<dialog id="settings-dialog" class="settings-dialog"><form id="settings-form"><div class="dialog-header"><div><span class="eyebrow">MA MAISON</span><h2>Relier mes équipements</h2></div><button type="button" class="icon-button" data-close aria-label="Fermer les réglages">×</button></div><div class="dialog-body">
+  <div class="connection-hint" id="connection-hint">Les mesures en direct sont lues sur votre réseau Wi-Fi. L’historique est enregistré par votre Shelly qui accepte les scripts, même quand ce tableau de bord est fermé.</div>
+  <fieldset><legend>1. Les compteurs</legend><p class="help">Les IP sont préremplies. Vérifiez les canaux : 0 correspond à la première voie, 1 à la seconde.</p><div id="meter-configs"></div><button type="button" class="secondary-button" id="test-shelly">Tester les mesures (lecture seule)</button><pre id="diagnostics" hidden></pre><label class="check-row"><input type="checkbox" id="mapping-confirmed">J’ai vérifié l’affectation des canaux et le sens des mesures.</label></fieldset>
+  <fieldset><legend>2. La mesure « maison »</legend><label>Emplacement de la pince<select id="topology"><option value="unknown">À confirmer</option><option value="load">Elle mesure toute la consommation de la maison</option><option value="grid">Elle mesure l’échange réseau (positif = achat)</option></select></label><p class="help">Ce choix permet de calculer correctement le surplus. Les appareils ne sont pas ajoutés à nouveau au total maison.</p></fieldset>
+  <fieldset><legend>3. L’historique Google Sheets</legend><label>Adresse de l’application Google Apps Script<input type="url" id="sheets-url" placeholder="https://script.google.com/macros/s/…/exec" autocomplete="off"></label><label>Clé de lecture<input type="password" id="read-token" autocomplete="off" placeholder="La clé READ_TOKEN créée dans Apps Script"></label><p class="help">Collecte toutes les 5 secondes, une ligne par minute, envoi groupé toutes les 5 minutes. Minute : 30 jours ; 15 min et heure : 2 ans ; résumés journaliers conservés.</p><a class="inline-link" href="installation.zip" download>Télécharger le collecteur et le guide</a></fieldset>
+  <fieldset><legend>4. Portail et garage</legend><p class="help">Portail : impulsion fixée à 0,5 seconde. Le mode voiture envoie une seule impulsion, puis le portail gère sa fermeture. Vérifiez le canal de chaque relais.</p><div id="relay-configs"></div><label class="check-row"><input type="checkbox" id="relay-confirmed">Ces relais sont bien les contacts secs des motorisations ; leur canal et leur arrêt automatique sont vérifiés.</label>
+    <h3 class="settings-subtitle">Séquence piéton sur le Shelly</h3><p class="help">Le script portail envoie les trois impulsions, même si cette page est fermée. Installez-le sur le Shelly du portail s’il accepte les scripts, sinon sur un autre Shelly compatible de la maison.</p>
+    <label>Adresse du script portail<input type="url" id="gate-controller-url" placeholder="http://IP_DU_SHELLY/script/ID/gate" autocomplete="off"></label><label>Clé privée du portail<input type="password" id="gate-controller-token" autocomplete="off" placeholder="Même clé dans le script portail"></label><button type="button" class="secondary-button" id="generate-gate-token">Générer une clé</button><p class="help key-help">Cette clé reste dans vos réglages. Copiez-la dans le script portail du kit.</p><a class="inline-link" href="installation.zip" download>Télécharger le script portail et le guide</a>
+  </fieldset>
+  <fieldset><legend>5. Mon composant virtuel</legend><label class="check-row"><input type="checkbox" id="virtual-enabled">Afficher ce composant dans le tableau de bord</label><div class="virtual-settings"><label>Nom à afficher<input id="virtual-name" placeholder="Recharge VE" maxlength="80"></label><label>IP du Shelly qui le porte<input id="virtual-ip" placeholder="192.168.1.10" autocomplete="off"></label><label>Identifiant complet<input id="virtual-component" placeholder="boolean:200" autocomplete="off"></label><label>Unité facultative (nombre ou texte)<input id="virtual-unit" placeholder="W, °C…" maxlength="20"></label><label>Libellé quand faux (OFF)<input id="virtual-false-label" placeholder="Recharge VE OFF" maxlength="80"></label><label>Libellé quand vrai (ON)<input id="virtual-true-label" placeholder="Recharge VE On" maxlength="80"></label></div><p class="help">Recharge VE est préconfiguré sur le Shelly du garage. L’état est lu toutes les 2 secondes en direct. Les libellés s’appliquent aux booléens ; l’unité concerne les nombres et les textes.</p></fieldset>
+  <div class="form-message" id="form-message" role="status"></div>
+  </div><div class="dialog-footer"><button type="button" class="secondary-button" id="demo-mode">Voir la démo</button><button class="primary-button" type="submit">Enregistrer et passer en direct</button></div></form></dialog>
+<dialog class="confirm-dialog" id="pulse-dialog"><h2 id="pulse-title">Envoyer une impulsion ?</h2><p id="pulse-description"></p><label class="check-row" id="gate-closed-row" hidden><input type="checkbox" id="gate-closed">Le portail est actuellement fermé.</label><div class="dialog-footer"><button class="secondary-button" id="cancel-pulse">Annuler</button><button class="primary-button" id="confirm-pulse">Envoyer l’impulsion</button></div></dialog>
+<div class="toast" id="toast" role="status" hidden></div>
+<script>(function(root){
+  'use strict';
+  const METRICS=['solar','home','pool','heatpump','waterheater','import','export'];
+  const ZONE='Europe/Paris';
+  const finite=v=>typeof v==='number'&&Number.isFinite(v);
+  function meter(s,channel){
+    if(!s||!Number.isInteger(channel))return null;
+    const a=s.emeters?.[channel]||s.meters?.[channel];
+    if(a)return a.is_valid===false||a.errors?.length||!finite(a.power)?null:a.power;
+    for(const prefix of ['em1','switch','pm1']){
+      const c=s[prefix+':'+channel];
+      if(c){const p=c.act_power??c.apower;return c.errors?.length||!finite(p)?null:p;}
+    }
+    return null;
+  }
+  function flows(solar,reading,topology){
+    const knownSolar=finite(solar)&&solar>=-10?Math.max(0,solar):null;
+    const knownHome=topology==='load'&&finite(reading)&&reading>=-10?Math.max(0,reading):null;
+    if(knownSolar===null||!finite(reading)||!['load','grid'].includes(topology))return {solar:knownSolar,home:knownHome,import:null,export:null,self:null};
+    solar=Math.max(0,solar);
+    let home=topology==='grid'?solar+reading:reading;
+    if(home < -10)return {solar,home:null,import:null,export:null,self:null};
+    home=Math.max(0,home);
+    const grid=home-solar;
+    return {solar,home,import:Math.max(0,grid),export:Math.max(0,-grid),self:Math.min(home,solar)};
+  }
+  function parts(t){
+    const p=new Intl.DateTimeFormat('en-CA',{timeZone:ZONE,year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(new Date(t));
+    const g=k=>p.find(x=>x.type===k).value;
+    return {year:+g('year'),month:+g('month'),day:+g('day'),date:g('year')+'-'+g('month')+'-'+g('day')};
+  }
+  function key(t,g){
+    if(['minute','quarter','hour'].includes(g)){const ms={minute:60000,quarter:900000,hour:3600000}[g];return String(Math.floor(t/ms)*ms);}
+    const p=parts(t);return g==='day'?p.date:g==='month'?p.date.slice(0,7):String(p.year);
+  }
+  function aggregate(rows,g){
+    const out=new Map();
+    for(const row of rows){
+      const k=key(row.t,g);
+      if(!out.has(k))out.set(k,{key:k,t:row.t,wh:Array(7).fill(0),seconds:Array(7).fill(0)});
+      const b=out.get(k);b.t=Math.min(b.t,row.t);
+      for(let i=0;i<7;i++)if(finite(row.wh[i])&&finite(row.seconds[i])&&row.seconds[i]>0){b.wh[i]+=row.wh[i];b.seconds[i]+=row.seconds[i];}
+    }
+    return [...out.values()].sort((a,b)=>a.t-b.t).map(b=>({...b,wh:b.wh.map((w,i)=>b.seconds[i]?w:null)}));
+  }
+  // Midnight in Paris, including CET/CEST. Search avoids the host machine's timezone.
+  function midnight(date){
+    const target=date+'T00:00:00';let t=Date.parse(target+'Z');
+    for(let n=0;n<3;n++){
+      const p=new Intl.DateTimeFormat('sv-SE',{timeZone:ZONE,year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',second:'2-digit',hourCycle:'h23'}).format(new Date(t));
+      t+=Date.parse(target+'Z')-Date.parse(p.replace(' ','T')+'Z');
+    }return t;
+  }
+  function dayShift(date,days){const d=new Date(date+'T12:00:00Z');d.setUTCDate(d.getUTCDate()+days);return d.toISOString().slice(0,10);}
+  function range(date,g){
+    const p=date.split('-').map(Number);let start=date,end=dayShift(date,1);
+    if(g==='day'){start=date.slice(0,7)+'-01';end=new Date(Date.UTC(p[0],p[1],1)).toISOString().slice(0,10);}
+    if(g==='month'){start=p[0]+'-01-01';end=(p[0]+1)+'-01-01';}
+    if(g==='year'){start=(p[0]-4)+'-01-01';end=(p[0]+1)+'-01-01';}
+    return {from:midnight(start),to:midnight(end)};
+  }
+  function buckets(date,g,hour=12){
+    let {from,to}=range(date,g);const out=[];
+    if(g==='minute'){from+=hour*3600000;to=Math.min(to,from+3600000);}
+    if(['minute','quarter','hour'].includes(g)){
+      const step={minute:60000,quarter:900000,hour:3600000}[g];
+      for(let t=from;t<to;t+=step)out.push({key:key(t,g),t,duration:(Math.min(to,t+step)-t)/1000});
+    }else{
+      let d=new Date(from+12*3600000);let dateKey=parts(d).date;
+      while(midnight(dateKey)<to){
+        let next;
+        if(g==='day')next=dayShift(dateKey,1);
+        else if(g==='month'){const p=dateKey.split('-').map(Number);next=new Date(Date.UTC(p[0],p[1],1)).toISOString().slice(0,10);}
+        else next=(+dateKey.slice(0,4)+1)+'-01-01';
+        const t=midnight(dateKey);out.push({key:key(t,g),t,duration:(midnight(next)-t)/1000});dateKey=next;
+      }
+    }return out;
+  }
+  function integrate(previous,current,accumulate,maxGap=15000){
+    if(!previous||current.t<=previous.t||current.t-previous.t>maxGap)return;
+    let t=previous.t;
+    while(t<current.t){const minute=Math.floor(t/60000)*60000,end=Math.min(current.t,minute+60000),seconds=(end-t)/1000;
+      for(let i=0;i<7;i++)if(finite(previous.values[i])&&finite(current.values[i])){
+        const delta=current.values[i]-previous.values[i],span=current.t-previous.t;
+        const startW=previous.values[i]+delta*(t-previous.t)/span,endW=previous.values[i]+delta*(end-previous.t)/span;
+        accumulate(minute,i,(startW+endW)/2*seconds/3600,seconds);
+      }
+      t=end;
+    }
+  }
+  const api={METRICS,ZONE,finite,meter,flows,parts,key,aggregate,midnight,dayShift,range,buckets,integrate};
+  if(typeof module!=='undefined'&&module.exports)module.exports=api;root.Energy=api;
+})(typeof globalThis!=='undefined'?globalThis:this);
+
+</script><script>(function(root){
+'use strict';
+const virtualDefaults={enabled:false,ip:'',component:'',label:'Composant virtuel',unit:'',falseLabel:'Inactif',trueLabel:'Actif'};
+const rechargeVE={enabled:true,ip:'192.168.1.10',component:'boolean:200',label:'Recharge VE',unit:'',falseLabel:'Recharge VE OFF',trueLabel:'Recharge VE On'};
+function migrate(config){
+  const c={...config,gateController:{url:'',token:'',...config.gateController},virtual:{...virtualDefaults,...config.virtual}};
+  c.relays=config.relays.map(r=>({...r}));
+  if((c.accessVersion||0)<2){c.relays.find(r=>r.key==='gate').ip='192.168.1.114';c.relays.find(r=>r.key==='garage').ip='192.168.1.10';}
+  if((c.virtualVersion||0)<1){
+    if(!c.virtual.component||(c.virtual.ip===rechargeVE.ip&&c.virtual.component===rechargeVE.component))c.virtual={...c.virtual,...rechargeVE};
+    c.virtualVersion=1;
+  }
+  c.relays.find(r=>r.key==='gate').seconds=.5;c.accessVersion=2;return c;
+}
+function virtualPath(component){const m=/^(text|number|boolean|enum):(2\d{2})$/.exec(component);if(!m)throw Error('Identifiant attendu : text:204, number:200, boolean:200 ou enum:200.');return '/rpc/'+m[1][0].toUpperCase()+m[1].slice(1)+'.GetStatus?id='+m[2];}
+function controllerUrlValid(value,validIP){try{const u=new URL(value);return u.protocol==='http:'&&validIP(u.hostname)&&!u.username&&!u.password&&!u.search&&!u.hash&&!u.port&&/^\/script\/\d+\/gate$/.test(u.pathname);}catch{return false;}}
+function create(o){
+  const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+  let remote=null,remoteTime=0,remoteError='',reading=false,virtualReading=false,version=0,pending=null,sending=false,demo=null,lastPulse={};
+  const get=o.get,mode=o.mode,local=o.isLocal,request=o.request,toast=o.toast;
+  function demoState(){
+    if(!demo)return {state:'idle',busy:false,pulses:0};
+    if(demo.cancelled)return {id:demo.id,state:'cancelled',busy:false,pulses:demo.pulses};
+    const elapsed=(Date.now()-demo.at)/1000;
+    if(demo.mode==='car')return {id:demo.id,mode:'car',state:'done',busy:false,pulses:1};
+    demo.pulses=elapsed<5?1:elapsed<35?2:3;
+    return {id:demo.id,mode:demo.mode,state:elapsed<5?'wait_stop':elapsed<35?'wait_close':'done',busy:elapsed<35,pulses:demo.pulses,nextIn:Math.ceil(elapsed<5?5-elapsed:35-elapsed)};
+  }
+  function current(){return mode()==='demo'?demoState():remote?.job;}
+  function controllerConfigured(){const c=get().gateController;return !!(c.url&&c.token);}
+  function fresh(){return !!remote&&Date.now()-remoteTime<7000;}
+  function render(){
+    const c=get(),simulated=mode()==='demo',gate=c.relays.find(r=>r.key==='gate'),garage=c.relays.find(r=>r.key==='garage'),job=current();
+    const directReady=c.relayConfirmed&&o.validIP(gate.ip)&&local();
+    const useController=controllerConfigured(),ready=simulated||(directReady&&(!useController||(fresh()&&remote.ready)));
+    const occupied=!!job?.busy||(job?.cooldown||0)>0;
+    $('[data-gate-mode="car"]').disabled=!ready||occupied||sending;
+    $('[data-gate-mode="pedestrian"]').disabled=!ready||(!simulated&&!useController)||occupied||sending;
+    $('[data-pulse="garage"]').disabled=!simulated&&!(c.relayConfirmed&&o.validIP(garage.ip)&&local());
+    $('#gate-status').textContent=simulated?'Démonstration · position inconnue':!directReady?'Canal et modèle à vérifier · position inconnue':useController&&!fresh()?(remoteError||'Contrôleur à relier')+' · position inconnue':useController&&!remote.ready?'Script à configurer · position inconnue':'Position inconnue · sans capteur';
+    $('#garage-status').textContent=simulated?'Démonstration · position inconnue':'Position inconnue · sans capteur';
+    $('#gate-ip').textContent=gate.ip;$('#garage-ip').textContent=garage.ip;
+    const panel=$('#gate-progress'),label=$('#gate-progress-text');panel.hidden=!job||job.state==='idle';
+    if(job){
+      const prefix=simulated?'Simulation · ':'';
+      const texts={starting:'Transmission de la première impulsion…',wait_stop:'1/3 · impulsion d’arrêt dans '+job.nextIn+' s',wait_close:'2/3 · impulsion de fermeture dans '+job.nextIn+' s',done:job.mode==='car'?'Impulsion envoyée · fermeture gérée par le portail':'3/3 · impulsion de fermeture envoyée',cancelled:'Impulsions restantes annulées · le mouvement n’a pas été arrêté',error:job.error||'Séquence interrompue · vérifier le portail'};
+      label.textContent=prefix+(texts[job.state]||'Lecture de la séquence…');
+      if(!simulated&&useController&&!fresh())label.textContent='Suivi indisponible : la séquence peut continuer sur le Shelly.';
+    }
+    $('#cancel-gate-sequence').hidden=!job?.busy;$('#cancel-gate-sequence').disabled=!simulated&&!fresh();
+    $('#gate-controller-hint').hidden=simulated||useController;
+    $('#virtual-title').textContent=c.virtual.label||'Composant virtuel';
+    if(!c.virtual.enabled){$('#virtual-value').textContent='À configurer';$('#virtual-status').textContent='Texte, nombre ou état de votre Shelly';}
+    else if(simulated){$('#virtual-value').textContent='État inconnu';$('#virtual-status').textContent='Passez en direct sur le réseau maison pour lire ce composant';}
+  }
+  function fillSettings(){
+    const c=get();$('#gate-controller-url').value=c.gateController.url;$('#gate-controller-token').value=c.gateController.token;
+    $('#virtual-enabled').checked=c.virtual.enabled;$('#virtual-ip').value=c.virtual.ip;$('#virtual-component').value=c.virtual.component;$('#virtual-name').value=c.virtual.label;$('#virtual-unit').value=c.virtual.unit;
+    $('#virtual-false-label').value=c.virtual.falseLabel;$('#virtual-true-label').value=c.virtual.trueLabel;
+  }
+  function readSettings(){return {gateController:{url:$('#gate-controller-url').value.trim(),token:$('#gate-controller-token').value.trim()},virtual:{enabled:$('#virtual-enabled').checked,ip:$('#virtual-ip').value.trim(),component:$('#virtual-component').value.trim().toLowerCase(),label:$('#virtual-name').value.trim(),unit:$('#virtual-unit').value.trim(),falseLabel:$('#virtual-false-label').value.trim(),trueLabel:$('#virtual-true-label').value.trim()}};}
+  function validate(c){
+    if(c.gateController.url&&!controllerUrlValid(c.gateController.url,o.validIP))throw Error('Adresse du contrôleur attendue : http://IP_DU_SHELLY/script/ID/gate.');
+    if(c.gateController.url&&c.gateController.token.length<24)throw Error('La clé du contrôleur doit contenir au moins 24 caractères.');
+    if(c.virtual.enabled){if(!o.validIP(c.virtual.ip))throw Error('Renseignez l’IP du Shelly qui porte le composant virtuel.');virtualPath(c.virtual.component);}
+  }
+  async function controllerCall(payload){
+    const c=get(),gate=c.relays.find(r=>r.key==='gate');
+    if(!local()||!controllerUrlValid(c.gateController.url,o.validIP))throw Error('Le contrôleur doit être accessible sur le réseau local.');
+    const d=await request(c.gateController.url,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({...payload,token:c.gateController.token}),timeout:5000});
+    if(!d.ok||!d.job)throw Error(d.error||'Réponse du contrôleur invalide.');
+    if(d.targetIp!==gate.ip||d.channel!==gate.channel)throw Error('Le script cible un autre relais : vérifiez son IP et son canal.');
+    return d;
+  }
+  async function pollController(){
+    if(reading||mode()!=='live'||!local()||!controllerConfigured())return;
+    reading=true;const v=version;
+    try{const d=await controllerCall({action:'status'});if(v!==version)return;remote=d;remoteTime=Date.now();remoteError='';}
+    catch(e){if(v===version){remoteTime=0;remoteError='Contrôleur indisponible';}}
+    finally{reading=false;render();}
+  }
+  async function pollVirtual(){
+    const c=get().virtual;if(virtualReading||!c.enabled||mode()!=='live')return;
+    if(!local()){$('#virtual-value').textContent='—';$('#virtual-status').textContent='Lecture disponible sur le réseau maison';return;}
+    virtualReading=true;const v=version;
+    try{
+      if(!o.validIP(c.ip))throw Error('IP à configurer');
+      const d=await request('http://'+c.ip+virtualPath(c.component));if(v!==version)return;
+      if(!Object.prototype.hasOwnProperty.call(d,'value')||d.value===null||(typeof d.value==='number'&&!Number.isFinite(d.value)))throw Error('Valeur absente');
+      if(!['string','boolean','number'].includes(typeof d.value))throw Error('Type non pris en charge');
+      if(c.component.startsWith('boolean:')&&typeof d.value!=='boolean')throw Error('État booléen attendu');
+      $('#virtual-value').textContent=typeof d.value==='boolean'?(d.value?(c.trueLabel||'Actif'):(c.falseLabel||'Inactif')):(typeof d.value==='number'?d.value.toLocaleString('fr-FR',{maximumFractionDigits:3}):d.value)+(c.unit?' '+c.unit:'');
+      $('#virtual-status').textContent=c.component+' · lu à '+new Date().toLocaleTimeString('fr-FR',{timeZone:'Europe/Paris'});
+    }catch(e){if(v===version){$('#virtual-value').textContent='—';$('#virtual-status').textContent='Composant indisponible · vérifier l’IP et l’identifiant';}}
+    finally{virtualReading=false;}
+  }
+  function refresh(){version++;remote=null;remoteTime=0;remoteError='';$('#virtual-value').textContent='—';$('#virtual-status').textContent='En attente de lecture';render();tick();}
+  function tick(){render();pollController();pollVirtual();}
+  function requestPulse(key,kind){
+    const c=get(),r=c.relays.find(x=>x.key===key),simulated=mode()==='demo';if(!r)return;
+    const action=key==='gate'?(kind||'car'):'single';
+    if(key==='gate'&&!['car','pedestrian'].includes(action))return;
+    if(sending)return;
+    if(!simulated&&(!c.relayConfirmed||!o.validIP(r.ip)||!local()))return toast('Vérifiez le canal et le contact sec dans les réglages.');
+    if(key==='gate'&&(current()?.busy||(current()?.cooldown||0)>0))return toast('Une séquence est déjà en cours.');
+    if(!simulated&&key==='gate'&&((action==='pedestrian'&&!controllerConfigured())||(controllerConfigured()&&(!fresh()||!remote.ready))))return toast('Reliez le script du portail dans les réglages.');
+    if(Date.now()-(lastPulse[key]||0)<10000)return toast('Patientez 10 secondes entre deux commandes.');
+    pending={...r,seconds:key==='gate'?.5:r.seconds,mode:mode(),action};
+    $('#pulse-title').textContent=key==='garage'?'Garage · une impulsion':action==='car'?'Portail · mode voiture':'Portail · mode piéton';
+    $('#pulse-description').textContent=(simulated?'Démonstration : aucune commande réelle. ':'')+(key==='garage'?'Une impulsion de '+r.seconds+' seconde(s). Position inconnue.':action==='car'?'Une seule impulsion de 0,5 seconde. Le portail gère ensuite lui-même sa fermeture.':'Trois impulsions de 0,5 seconde : ouverture, arrêt 5 secondes plus tard, puis fermeture 30 secondes après l’arrêt. La séquence continue sur le Shelly si vous fermez cette page.');
+    $('#gate-closed-row').hidden=action!=='pedestrian'||simulated;$('#gate-closed').checked=false;
+    $('#confirm-pulse').textContent=action==='pedestrian'?'Lancer le mode piéton':'Envoyer l’impulsion';$('#confirm-pulse').disabled=action==='pedestrian'&&!simulated;$('#pulse-dialog').showModal();
+  }
+  async function single(r){
+    let gen=r.gen;
+    if(gen==='auto'){const info=await request('http://'+r.ip+'/shelly');gen=info.gen>=2?'2':typeof info.type==='string'?'1':null;if(!gen)throw Error('Modèle à vérifier.');}
+    const status=await request('http://'+r.ip+(gen==='1'?'/status':'/rpc/Switch.GetStatus?id='+r.channel));
+    const on=gen==='1'?status.relays?.[r.channel]?.ison:status.output;
+    if(on!==false)throw Error('Relais déjà actif ou état inconnu.');
+    const d=await request('http://'+r.ip+(gen==='1'?'/relay/'+r.channel+'?turn=on&timer='+r.seconds:'/rpc/Switch.Set?id='+r.channel+'&on=true&toggle_after='+r.seconds));
+    if(gen==='1'?d.ison!==true:d.was_on!==false)throw Error('Impulsion non confirmée.');
+  }
+  async function sendPulse(){
+    const r=pending;if(!r||sending)return;
+    if(r.action==='pedestrian'&&r.mode==='live'&&!$('#gate-closed').checked)return;
+    sending=true;$('#confirm-pulse').disabled=true;lastPulse[r.key]=Date.now();render();
+    try{
+      if(r.mode!==mode())throw Error('Le mode a changé.');
+      if(r.mode==='demo'){
+        if(r.key==='gate')demo={id:'demo-'+Date.now(),mode:r.action,at:Date.now(),pulses:1};
+        toast(r.action==='pedestrian'?'Séquence piéton simulée : 0, 5 et 35 secondes.':'Impulsion simulée · aucun appareil commandé.');
+      }else{
+        const c=get(),currentRelay=c.relays.find(x=>x.key===r.key);
+        if(!c.relayConfirmed||!local()||currentRelay.ip!==r.ip||currentRelay.channel!==r.channel)throw Error('Configuration modifiée.');
+        if(r.key==='gate'&&controllerConfigured()){
+          if(!fresh()||!remote.ready)throw Error('Relisez l’état du contrôleur.');
+          remote=await controllerCall({action:'start',id:globalThis.crypto?.randomUUID?.()||('req-'+Date.now()+'-'+Math.random().toString(36).slice(2)),mode:r.action,closed:r.action==='pedestrian'&&$('#gate-closed').checked});remoteTime=Date.now();
+          if(remote.job.state==='error')throw Error(remote.job.error||'Commande refusée.');
+          toast(r.action==='car'?'Commande voiture transmise · une seule impulsion.':'Séquence piéton prise en charge par le Shelly.');
+        }else{
+          if(r.action==='pedestrian')throw Error('Le script piéton doit être installé.');
+          await single(r);toast(r.key==='gate'?'Impulsion de 0,5 s acceptée · fermeture gérée par le portail.':'Impulsion acceptée · position inconnue.');
+        }
+      }
+    }catch(e){if(r.key==='gate'&&r.mode==='live'){remoteTime=0;remoteError='Commande non confirmée';}toast(e.message+' Aucune commande ne sera retentée automatiquement.');}
+    finally{sending=false;pending=null;$('#confirm-pulse').disabled=false;$('#pulse-dialog').close();render();}
+  }
+  async function cancelSequence(){
+    const j=current();if(!j?.id||!j.busy)return;
+    try{if(mode()==='demo'){demo.cancelled=true;}else{remote=await controllerCall({action:'cancel',id:j.id});remoteTime=Date.now();}toast('Impulsions restantes annulées. Cela n’arrête pas un mouvement déjà lancé.');}
+    catch(e){remoteTime=0;toast('Annulation non confirmée : la séquence peut continuer sur le Shelly.');}render();
+  }
+  $('#gate-closed').addEventListener('change',()=>{$('#confirm-pulse').disabled=!$('#gate-closed').checked;});
+  $('#cancel-gate-sequence').addEventListener('click',cancelSequence);
+  $('#generate-gate-token').addEventListener('click',()=>{const bytes=new Uint8Array(24);if(!globalThis.crypto?.getRandomValues)return toast('Générez une clé privée de 24 caractères ou plus.');crypto.getRandomValues(bytes);$('#gate-controller-token').value=[...bytes].map(n=>n.toString(16).padStart(2,'0')).join('');toast('Clé générée. Copiez-la dans le script portail.');});
+  return {fillSettings,readSettings,validate,render,refresh,tick,requestPulse,sendPulse,cancelPending:()=>{pending=null;}};
+}
+const api={migrate,virtualPath,controllerUrlValid,create};if(typeof module!=='undefined'&&module.exports)module.exports=api;root.HomeAccess=api;
+})(typeof globalThis!=='undefined'?globalThis:this);
+
+</script><script>/* Maison Énergie — no credentials or measurements are bundled with this app. */
+(()=>{
+'use strict';
+const E=window.Energy,$=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const labels={solar:'Photovoltaïque',home:'Maison',pool:'Piscine',heatpump:'Pompe à chaleur',waterheater:'Chauffe-eau'};
+const defaults={mode:'demo',topology:'unknown',confirmed:false,relayConfirmed:false,sheetsUrl:'',readToken:'',meters:[{key:'solar',ip:'192.168.1.15',gen:'auto',channel:0,invert:false},{key:'home',ip:'192.168.1.11',gen:'auto',channel:0,invert:false},{key:'pool',ip:'192.168.1.11',gen:'auto',channel:1,invert:false},{key:'heatpump',ip:'192.168.1.17',gen:'auto',channel:0,invert:false},{key:'waterheater',ip:'192.168.1.17',gen:'auto',channel:1,invert:false}],relays:[{key:'gate',ip:'192.168.1.114',gen:'auto',channel:0,seconds:.5},{key:'garage',ip:'192.168.1.10',gen:'auto',channel:0,seconds:1}]};
+let cfg=structuredClone(defaults);try{const saved=JSON.parse(localStorage.getItem('maison-energy-v1'));if(saved&&Array.isArray(saved.meters)&&saved.meters.length===5&&Array.isArray(saved.relays)&&saved.relays.length===2)cfg={...cfg,...saved};}catch{}
+cfg=HomeAccess.migrate(cfg);
+let mode=cfg.mode==='live'?'live':'demo',granularity='hour',metric='home',date=E.parts(Date.now()).date,hour=12,live={},lastRead=0,busy=false,historyRequest=0,currentBars=[],fetchGeneration=0;
+let proxyToken=null;
+const genCache=new Map(),fmt=(n,d=1)=>n.toLocaleString('fr-FR',{maximumFractionDigits:d,minimumFractionDigits:d});
+const escape=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function save(){try{localStorage.setItem('maison-energy-v1',JSON.stringify({...cfg,mode}));}catch{toast('Les réglages ne peuvent pas être mémorisés dans ce navigateur.');}}
+function power(n,html=true){if(!E.finite(n))return '—';return n>=1000?fmt(n/1000,2)+(html?' <small>kW</small>':' kW'):fmt(n,0)+(html?' <small>W</small>':' W');}
+function energy(n){return E.finite(n)?fmt(n/1000,n<1000?3:2)+' <small>kWh</small>':'—';}
+function toast(message){$('#toast').textContent=message;$('#toast').hidden=false;clearTimeout(toast.timer);toast.timer=setTimeout(()=>$('#toast').hidden=true,6000);}
+function isLocal(){return location.protocol!=='https:';}
+function validIP(ip){return /^(192\.168\.\d{1,3}\.\d{1,3}|10\.\d{1,3}\.\d{1,3}\.\d{1,3}|172\.(1[6-9]|2\d|3[01])\.\d{1,3}\.\d{1,3})$/.test(ip)&&ip.split('.').every(x=>+x<=255);}
+function renderMode(){
+  $('#mode-badge').textContent=mode==='demo'?'Démonstration':'Direct local';$('#mode-badge').classList.toggle('connected',mode==='live');
+  $('#mode-banner').classList.toggle('error-banner',mode==='live'&&(!isLocal()||!cfg.confirmed));
+  $('#mode-banner').innerHTML=mode==='demo'?'<span><b>Vous explorez une démonstration.</b> Les valeurs sont simulées.</span><button data-settings>Connecter mes Shelly ↗</button>':!isLocal()?'<span><b>Les IP de la maison sont locales.</b> Pour le direct, ouvrez l’interface HTML téléchargée sur votre Wi-Fi. L’historique Google reste accessible ici.</span><button id="local-download">Télécharger le HTML ↗</button>':'<span><b>Lecture locale des Shelly.</b> Actualisation toutes les 2 secondes. L’historique se configure dans les réglages.</span><button data-settings>Réglages ↗</button>';
+  $('#live-label').textContent=mode==='demo'?'SIMULATION':'DIRECT';
+  access.render();
+}
+function demoNow(){const v=Math.sin(Date.now()/9500)*70;return {solar:3840+v,home:1760+v*.45,pool:3,heatpump:1110+v*.35,waterheater:0};}
+function paintLive(values,ok=true){
+  const f=E.flows(values.solar,values.home,mode==='demo'?'load':cfg.topology);live={...values,...f};
+  $('#home-power').innerHTML=power(f.home);$('#solar-power').innerHTML=power(f.solar);
+  const exporting=E.finite(f.export)&&f.export>1;$('#grid-title').textContent=exporting?'Surplus vers le réseau':'Prélèvement réseau';$('#grid-power').innerHTML=power(exporting?f.export:f.import);
+  $('#home-foot').textContent=E.finite(f.home)?'Puissance instantanée · appareils inclus':'Mesure indisponible ou configuration à vérifier';$('#solar-foot').textContent=E.finite(f.solar)?'Panneaux photovoltaïques':'Mesure indisponible';$('#grid-foot').textContent=E.finite(f.import)?exporting?'Votre surplus est injecté sur le réseau':'Électricité prélevée sur le réseau':'Flux en attente de mesures valides';
+  $('#flow-solar').textContent=power(f.solar,false);$('#flow-home').textContent=power(f.home,false);$('#flow-grid').textContent=power(exporting?f.export:f.import,false);
+  const cover=E.finite(f.home)&&f.home>0?Math.min(100,f.self/f.home*100):null;
+  $('#autonomy').textContent=cover===null?'—':fmt(cover,0)+' %';$('#gauge').style.setProperty('--coverage',(cover??0)+'%');$('#self-power').textContent=power(f.self,false);$('#import-power').textContent=power(f.import,false);
+  $('#solar-caption').textContent=E.finite(f.solar)?'Solaire → maison':'Mesure indisponible';$('#grid-caption').textContent=E.finite(f.import)?exporting?'Maison → réseau':'Réseau → maison':'Mesure indisponible';
+  $('#solar-line').classList.toggle('stopped',!E.finite(f.solar)||f.solar<=1);$('#grid-line').classList.toggle('stopped',!E.finite(f.import)||(f.import+f.export)<=1);$('#grid-line').style.animationDirection=exporting?'reverse':'normal';$('#grid-line').style.stroke=exporting?'var(--mint)':'var(--grid)';
+  $('#flow-summary').textContent=cover===null?'En attente de mesures':cover>=99.5?'La maison est alimentée par le solaire':fmt(cover,0)+' % de la maison alimentés par le solaire';$('#flow-direction').textContent=E.finite(f.export)?exporting?power(f.export,false)+' de surplus':power(f.import,false)+' du réseau':'—';
+  $('#update-label').textContent=mode==='demo'?'Simulation · toutes les 2 s':lastRead?(ok?'Lu à ':'Lecture partielle · ')+new Date(lastRead).toLocaleTimeString('fr-FR',{timeZone:E.ZONE}):'En attente de connexion';
+  const max=Math.max(...['pool','heatpump','waterheater'].map(k=>values[k]||0),1);
+  for(const k of ['pool','heatpump','waterheater']){const n=values[k];$('#device-'+k+' .device-value').innerHTML=power(n);$('#device-'+k+' p').textContent=!E.finite(n)?'Mesure indisponible':n<10?'Au repos':'En fonctionnement';$('#device-'+k+' .mini-track span').style.width=(E.finite(n)?n/max*100:0)+'%';}
+}
+async function jsonRequest(url,options={}){const c=new AbortController(),t=setTimeout(()=>c.abort(),options.timeout||4000);try{
+  if(proxyToken&&/^https?:\/\//.test(url)){options={...options,method:'POST',headers:{'Content-Type':'application/json','X-Maison-Token':proxyToken},body:JSON.stringify({url,method:options.method||'GET',body:options.body||null})};url='/api/request';}
+  const r=await fetch(url,{cache:'no-store',...options,signal:c.signal});let data;try{data=await r.json();}catch{throw Error('Réponse illisible (HTTP '+r.status+').');}if(!r.ok||data?.error)throw Error(typeof data?.error==='string'?data.error:'HTTP '+r.status);return data;
+}finally{clearTimeout(t);}}
+async function readDevice(ip,gen='auto'){
+  if(!validIP(ip))throw Error('IP locale invalide');
+  if(!isLocal())throw Error('Ouvrir le HTML téléchargé sur le réseau de la maison.');
+  const actual=gen==='auto'?genCache.get(ip)||'2':gen;
+  try{const d=await jsonRequest('http://'+ip+(actual==='1'?'/status':'/rpc/Shelly.GetStatus'));genCache.set(ip,actual);return d;}
+  catch(e){if(gen==='auto'&&!genCache.has(ip)){const d=await jsonRequest('http://'+ip+'/status');genCache.set(ip,'1');return d;}throw e;}
+}
+async function poll(){
+  if(mode==='demo'){paintLive(demoNow());return;}if(busy)return;
+  if(!cfg.confirmed||!['load','grid'].includes(cfg.topology)||!isLocal()){paintLive({});return;}
+  busy=true;const version=fetchGeneration;
+  try{
+    const unique=[...new Set(cfg.meters.map(m=>m.ip))];const responses=await Promise.allSettled(unique.map(ip=>readDevice(ip,cfg.meters.find(m=>m.ip===ip).gen)));
+    if(version!==fetchGeneration||mode!=='live')return;
+    const values={};let count=0;
+    for(const m of cfg.meters){const r=responses[unique.indexOf(m.ip)];const n=r.status==='fulfilled'?E.meter(r.value,+m.channel):null;let v=n===null?null:n*(m.invert?-1:1);if(E.finite(v)&&!(m.key==='home'&&cfg.topology==='grid'))v=v < -10?null:Math.max(0,v);values[m.key]=v;if(E.finite(v))count++;}
+    lastRead=count?Date.now():0;paintLive(values,count===5);
+  }finally{busy=false;}
+}
+function demoBars(buckets){
+  return buckets.map((b,i)=>{const solarShape=['minute','quarter','hour'].includes(granularity)?Math.max(0,Math.sin(((granularity==='minute'?hour+i/60:i/(buckets.length/24))-6)/12*Math.PI)):0.55+.4*Math.sin((i+1)*.7);
+    const duration=b.duration/3600,pv=solarShape*(3900+Math.sin(i*1.9)*340)*duration,home=(1200+Math.max(0,Math.sin(i*.63))*900+(i%7===1?600:0))*duration;
+    return {...b,wh:[Math.max(0,pv),home,(i%5===2?500:3)*duration,home*.53,(i%8===2?1800:0)*duration,Math.max(0,home-pv),Math.max(0,pv-home)],seconds:Array(7).fill(b.duration)};
+  });
+}
+function chartLabel(b,full=false){
+  if(granularity==='year')return E.parts(b.t).year.toString();
+  return new Date(b.t).toLocaleString('fr-FR',{timeZone:E.ZONE,...(granularity==='month'?{month:full?'long':'short',...(full?{year:'numeric'}:{})}:granularity==='day'?{day:'numeric',...(full?{month:'long',year:'numeric'}:{})}:{hour:'2-digit',minute:'2-digit',...(full?{timeZoneName:'short'}:{})})});
+}
+function showTooltip(b,element){
+  const index=E.METRICS.indexOf(metric),v=b.wh[index];let text=chartLabel(b,true)+'\n'+labels[metric]+' : '+(v===null?'aucune mesure':fmt(v/1000,3)+' kWh');
+  if(metric==='home')text+='\nSolaire : '+(b.wh[0]===null?'aucune mesure':fmt(b.wh[0]/1000,3)+' kWh');
+  if((b.seconds[index]||0)<b.duration*.95)text+='\nCouverture : '+fmt((b.seconds[index]||0)/b.duration*100,0)+' % (partiel)';
+  const tip=$('#chart-tooltip'),panel=$('#history').getBoundingClientRect(),r=element.getBoundingClientRect();tip.textContent=text;tip.hidden=false;tip.style.top=Math.max(75,r.top-panel.top-65)+'px';tip.style.left=Math.max(12,Math.min(r.left-panel.left,$('#history').clientWidth-255))+'px';
+}
+function drawChart(bars){
+  currentBars=bars;const index=E.METRICS.indexOf(metric),hasSolar=metric==='home',container=$('#chart');
+  $('#solar-total-wrap').hidden=!hasSolar;$('#solar-legend').hidden=!hasSolar;$('#chart-metric-label').textContent=metric==='home'?'Consommation':labels[metric];
+  const sum=i=>bars.some(b=>b.wh[i]!==null)?bars.reduce((s,b)=>s+(b.wh[i]||0),0):null;
+  $('#chart-total').innerHTML=energy(sum(index));$('#chart-solar-total').innerHTML=energy(sum(0));
+  const width=Math.max(300,container.clientWidth),height=224,left=44,bottom=30,top=18,w=width-left-8,h=height-bottom-top;
+  const max=Math.max(.001,...bars.flatMap(b=>[b.wh[index]||0,hasSolar?b.wh[0]||0:0]).map(x=>x/1000));
+  const factor=10**Math.floor(Math.log10(max)),ceiling=Math.ceil(max/factor*2)/2*factor,step=w/bars.length;
+  let svg='<svg viewBox="0 0 '+width+' '+height+'" role="img" aria-label="Énergie par '+({minute:'minute',quarter:'quart d’heure',hour:'heure',day:'jour',month:'mois',year:'année'}[granularity])+', en kilowattheures">';
+  for(let i=0;i<=4;i++){const y=top+h-i*h/4;svg+='<line x1="'+left+'" y1="'+y+'" x2="'+(width-8)+'" y2="'+y+'"/><text x="'+(left-9)+'" y="'+(y+4)+'" text-anchor="end">'+escape(fmt(ceiling*i/4,ceiling<.1?3:ceiling<10?2:0))+'</text>';}
+  const labelEvery=Math.max(1,Math.ceil(bars.length/(width<480?5:10)));
+  bars.forEach((b,i)=>{const x=left+i*step,bw=Math.max(1,step*(hasSolar?.32:.62));
+    [index,...(hasSolar?[0]:[])].forEach((m,j)=>{const value=b.wh[m];if(value!==null){const bh=Math.max(value>0?1:0,value/1000/ceiling*h);svg+='<rect class="'+(j?'bar-solar':'bar-home')+'" x="'+(x+step*.13+j*bw)+'" y="'+(top+h-bh)+'" width="'+Math.max(.8,bw-1)+'" height="'+bh+'" rx="1.5" opacity="'+(b.seconds[m]<b.duration*.95?.5:1)+'"/>';}});
+    if(b.wh[index]===null&&(!hasSolar||b.wh[0]===null))svg+='<line x1="'+(x+2)+'" y1="'+(top+h-2)+'" x2="'+(x+step-2)+'" y2="'+(top+h-2)+'" style="stroke:#bac5c9;stroke-width:2;stroke-dasharray:2 2"/>';
+    if(i%labelEvery===0)svg+='<text x="'+(x+step/2)+'" y="'+(height-5)+'" text-anchor="middle">'+escape(chartLabel(b))+'</text>';
+    const accessible=chartLabel(b,true)+', '+labels[metric]+', '+(b.wh[index]===null?'aucune mesure':fmt(b.wh[index]/1000,3)+' kWh');
+    svg+='<rect class="hit" data-bar="'+i+'" tabindex="0" role="img" aria-label="'+escape(accessible)+'" x="'+x+'" y="'+top+'" width="'+step+'" height="'+h+'"/>';
+  });container.innerHTML=svg+'</svg>';
+  for(const el of container.querySelectorAll('[data-bar]')){const show=()=>showTooltip(bars[+el.dataset.bar],el);el.addEventListener('pointerenter',show);el.addEventListener('focus',show);el.addEventListener('click',show);el.addEventListener('pointerleave',()=>$('#chart-tooltip').hidden=true);el.addEventListener('blur',()=>$('#chart-tooltip').hidden=true);}
+}
+function emptyChart(title,message){currentBars=[];$('#chart').innerHTML='<div class="chart-empty"><b>'+escape(title)+'</b><span>'+escape(message)+'</span></div>';$('#chart-total').textContent='—';$('#chart-solar-total').textContent='—';}
+async function loadHistory(){
+  const request=++historyRequest;$('#chart-tooltip').hidden=true;$('#chart-hour').hidden=granularity!=='minute';
+  $$('.granularity button').forEach(b=>{const selected=b.dataset.granularity===granularity;b.classList.toggle('selected',selected);b.setAttribute('aria-pressed',String(selected));});
+  $$('[data-metric]').forEach(b=>{const selected=b.dataset.metric===metric;b.classList.toggle('selected',selected);b.setAttribute('aria-pressed',String(selected));});
+  const dayRange=E.range(date,'hour'),hours=Math.round((dayRange.to-dayRange.from)/3600000);
+  hour=Math.min(hour,hours-1);
+  $('#chart-hour').innerHTML=Array.from({length:hours},(_,i)=>'<option value="'+i+'">'+new Date(dayRange.from+i*3600000).toLocaleTimeString('fr-FR',{timeZone:E.ZONE,hour:'2-digit',minute:'2-digit',...(hours!==24?{timeZoneName:'short'}:{})})+'</option>').join('');$('#chart-hour').value=hour;
+  const buckets=E.buckets(date,granularity,hour);
+  if(mode==='demo'){drawChart(demoBars(buckets));$('#chart-note').textContent='Données simulées · chaque barre correspond à la durée choisie';return;}
+  $('#chart-note').textContent='Historique Google Sheets · mise à jour par lots de 5 minutes';
+  if(!cfg.sheetsUrl||!cfg.readToken){emptyChart('L’historique attend ses premières mesures','Reliez Google Sheets dans les réglages et installez le collecteur Shelly.');return;}
+  emptyChart('Chargement de l’historique…','Lecture des mesures enregistrées.');
+  try{
+    const from=buckets[0].t,to=buckets.at(-1).t+buckets.at(-1).duration*1000;
+    const data=await jsonRequest(cfg.sheetsUrl,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({action:'history',token:cfg.readToken,from,to,granularity}),timeout:25000});
+    if(request!==historyRequest)return;if(!data.ok||!Array.isArray(data.bars))throw Error(data.error||'Réponse Google non reconnue');
+    const map=new Map(data.bars.map(b=>[b.key,b])),bars=buckets.map(b=>({...b,wh:map.get(b.key)?.wh||Array(7).fill(null),seconds:map.get(b.key)?.seconds||Array(7).fill(0)}));
+    if(!data.bars.length){emptyChart('Aucune mesure pour cette période',data.notice||'Le collecteur doit être installé et avoir envoyé ses premiers relevés.');}
+    else drawChart(bars);
+    const index=E.METRICS.indexOf(metric),partial=bars.some(b=>b.seconds[index]<b.duration*.95);
+    $('#chart-note').textContent=(data.notice||'Google Sheets · heure de Paris')+(partial?' · Périodes incomplètes : barres atténuées ou pointillés':'');
+  }catch(e){if(request!==historyRequest)return;emptyChart('Historique indisponible','Vérifiez l’adresse /exec, la clé de lecture et le déploiement Apps Script. '+(e.name==='AbortError'?'Délai dépassé.':e.message));}
+}
+function configRows(items,relay=false){return '<div class="config-head"><span>Mesure</span><span>IP locale</span><span>Génération</span><span>Canal</span><span>'+(relay?'Durée':'Signe')+'</span></div>'+items.map(m=>'<div class="config-row" data-config="'+m.key+'"><span class="row-name">'+escape(relay?(m.key==='gate'?'Portail':'Garage'):labels[m.key])+'</span><input data-field="ip" value="'+escape(m.ip)+'" aria-label="IP '+m.key+'" placeholder="192.168.1.…" autocomplete="off"><select data-field="gen" aria-label="Génération '+m.key+'">'+'<option value="auto">Auto</option>'+'<option value="1">Gen 1</option><option value="2">Gen 2 / 3 / 4</option></select><select data-field="channel" aria-label="Canal '+m.key+'"><option value="0">0</option><option value="1">1</option></select>'+(relay?'<select data-field="seconds" '+(m.key==='gate'?'disabled':'')+' aria-label="Durée '+m.key+'"><option value="0.5">0,5 s</option><option value="1">1 s</option><option value="2">2 s</option></select>':'<label><input type="checkbox" data-field="invert" '+(m.invert?'checked':'')+'>Inverser</label>')+'</div>').join('');}
+function openSettings(){
+  $('#meter-configs').innerHTML=configRows(cfg.meters);$('#relay-configs').innerHTML=configRows(cfg.relays,true);
+  for(const m of [...cfg.meters,...cfg.relays]){const r=$('[data-config="'+m.key+'"]');r.querySelector('[data-field="gen"]').value=m.gen;r.querySelector('[data-field="channel"]').value=m.channel;if(m.seconds)r.querySelector('[data-field="seconds"]').value=m.seconds;}
+  $('#mapping-confirmed').checked=cfg.confirmed;$('#relay-confirmed').checked=cfg.relayConfirmed;$('#topology').value=cfg.topology;$('#sheets-url').value=cfg.sheetsUrl;$('#read-token').value=cfg.readToken;$('#form-message').textContent='';$('#diagnostics').hidden=true;
+  $('#connection-hint').textContent=isLocal()?'Les mesures en direct sont lues sur votre Wi-Fi. Le collecteur Shelly continue l’enregistrement quand cette page est fermée.':'Cette version en ligne permet d’explorer le tableau de bord et de lire Google Sheets. Pour contacter vos IP locales, téléchargez l’interface HTML et ouvrez-la sur le Wi-Fi de la maison.';
+  access.fillSettings();$('#settings-dialog').showModal();
+}
+function readForm(){
+  const read=m=>{const row=$('[data-config="'+m.key+'"]');const n={...m};for(const k of ['ip','gen','channel','seconds','invert']){const el=row.querySelector('[data-field="'+k+'"]');if(el)n[k]=k==='invert'?el.checked:['channel','seconds'].includes(k)?+el.value:el.value.trim();}return n;};
+  return {...cfg,...access.readSettings(),meters:cfg.meters.map(read),relays:cfg.relays.map(read),confirmed:$('#mapping-confirmed').checked,relayConfirmed:$('#relay-confirmed').checked,topology:$('#topology').value,sheetsUrl:$('#sheets-url').value.trim(),readToken:$('#read-token').value.trim()};
+}
+function validateConfig(c){
+  if(c.meters.some(m=>!validIP(m.ip)))throw Error('Renseignez une IP locale valide pour chaque mesure.');
+  for(const ip of new Set(c.meters.map(m=>m.ip)))if(new Set(c.meters.filter(m=>m.ip===ip).map(m=>m.gen)).size>1)throw Error('Les voies d’un même Shelly doivent avoir la même génération.');
+  if(new Set(c.meters.map(m=>m.ip+':'+m.channel)).size!==5)throw Error('Deux mesures utilisent le même canal : vérifiez les affectations.');
+  if(c.confirmed&&c.topology==='unknown')throw Error('Choisissez l’emplacement de la pince « maison » avant de valider ses mesures.');
+  if(c.sheetsUrl&&!/^https:\/\/script\.google\.com\/macros\/s\/[A-Za-z0-9_-]+\/exec$/.test(c.sheetsUrl))throw Error('L’adresse Google Apps Script doit commencer par https://script.google.com/macros/s/ et finir par /exec.');
+  if(c.relays.some(r=>r.ip&&!validIP(r.ip)))throw Error('L’IP du portail ou du garage est invalide.');
+  access.validate(c);
+}
+async function testShelly(){
+  const c=readForm(),out=$('#diagnostics');out.hidden=false;out.textContent='Lecture des compteurs…';$('#test-shelly').disabled=true;
+  try{const ips=[...new Set(c.meters.map(m=>m.ip))],results=await Promise.allSettled(ips.map(ip=>readDevice(ip,c.meters.find(m=>m.ip===ip).gen)));
+    out.textContent=ips.map((ip,i)=>{const r=results[i];if(r.status==='rejected')return ip+' : '+r.reason.message+'\n';let text=ip+' · Gen '+genCache.get(ip)+'\n';for(let ch=0;ch<2;ch++)text+='  Canal '+ch+' : '+power(E.meter(r.value,ch),false)+'\n';return text;}).join('\n');
+  }finally{$('#test-shelly').disabled=false;}
+}
+function downloadHtml(){const a=document.createElement('a');a.href='maison-energie.html';a.download='maison-energie.html';a.click();}
+function changeDate(direction){
+  let d=new Date(date+'T12:00:00Z');
+  if(granularity==='month'||granularity==='year')d.setUTCFullYear(d.getUTCFullYear()+direction);
+  else if(granularity==='day'){d.setUTCDate(1);d.setUTCMonth(d.getUTCMonth()+direction);}
+  else d.setUTCDate(d.getUTCDate()+direction);
+  date=d.toISOString().slice(0,10);$('#chart-date').value=date;loadHistory();
+}
+const access=HomeAccess.create({get:()=>cfg,mode:()=>mode,isLocal,request:jsonRequest,toast,validIP});
+$('#device-grid').innerHTML=[['pool','pool'],['heatpump','fan'],['waterheater','water']].map(([k,icon])=>'<article class="device-card" id="device-'+k+'"><span class="device-icon"><svg><use href="#i-'+icon+'"/></svg></span><div><h3>'+labels[k]+'</h3><p>En attente</p></div><strong class="device-value">—</strong><div class="mini-track"><span></span></div></article>').join('');
+$('#today-label').textContent=new Date().toLocaleDateString('fr-FR',{timeZone:E.ZONE,weekday:'long',day:'numeric',month:'long',year:'numeric'}).toUpperCase();
+$('#chart-date').value=date;$('#chart-hour').innerHTML=Array.from({length:25},(_,i)=>'<option value="'+i+'">'+i+'e heure</option>').join('');$('#chart-hour').value=hour;
+document.addEventListener('click',e=>{const el=e.target.closest('button');if(!el)return;if(el.hasAttribute('data-settings'))openSettings();if(el.id==='local-download'||el.id==='download-html')downloadHtml();if(el.dataset.granularity){granularity=el.dataset.granularity;loadHistory();}if(el.dataset.metric){metric=el.dataset.metric;loadHistory();}if(el.dataset.pulse)access.requestPulse(el.dataset.pulse,el.dataset.gateMode);});
+$('#settings-form').addEventListener('submit',e=>{e.preventDefault();try{const next=readForm();validateConfig(next);cfg=next;mode='live';fetchGeneration++;lastRead=0;genCache.clear();save();$('#settings-dialog').close();renderMode();access.refresh();paintLive({});poll();loadHistory();}catch(e){$('#form-message').textContent=e.message;}});
+$('[data-close]').onclick=()=>$('#settings-dialog').close();$('#demo-mode').onclick=()=>{mode='demo';fetchGeneration++;save();$('#settings-dialog').close();renderMode();access.refresh();poll();loadHistory();};$('#test-shelly').onclick=testShelly;
+$('#cancel-pulse').onclick=()=>{access.cancelPending();$('#pulse-dialog').close();};$('#confirm-pulse').onclick=access.sendPulse;
+$('#chart-date').onchange=e=>{if(!e.target.value)return;date=e.target.value;loadHistory();};$('#chart-hour').onchange=e=>{hour=+e.target.value;loadHistory();};$('#previous-date').onclick=()=>changeDate(-1);$('#next-date').onclick=()=>changeDate(1);$('#refresh-history').onclick=loadHistory;
+let resizeTimer;window.addEventListener('resize',()=>{clearTimeout(resizeTimer);resizeTimer=setTimeout(()=>{if(currentBars.length)drawChart(currentBars);},120);});
+document.addEventListener('visibilitychange',()=>{if(!document.hidden){poll();access.tick();if(mode==='live')loadHistory();}});
+setInterval(()=>{if(!document.hidden){poll();access.tick();}if(mode==='live'&&lastRead&&Date.now()-lastRead>12000)paintLive({});},2000);
+setInterval(()=>{if(!document.hidden&&mode==='live')loadHistory();},300000);
+async function initialize(){
+  if(location.protocol==='http:'&&['127.0.0.1','localhost'].includes(location.hostname))try{const r=await fetch('/api/session');if(r.ok)proxyToken=(await r.json()).token;}catch{}
+  renderMode();access.refresh();poll();loadHistory();
+}initialize();
+// Optional browser agent API. It shares the visible chart state; no device command is exposed.
+if(document.modelContext?.registerTool){
+  const lifecycle=new AbortController();window.addEventListener('pagehide',()=>lifecycle.abort(),{once:true});
+  const register=t=>{try{Promise.resolve(document.modelContext.registerTool(t,{signal:lifecycle.signal})).catch(()=>{});}catch{}};
+  register({name:'read_energy_dashboard',description:'Lire les puissances affichées et leur origine. Une démonstration renvoie explicitement des valeurs simulées.',inputSchema:{type:'object',properties:{},additionalProperties:false},annotations:{readOnlyHint:true},execute:()=>({mode,simulated:mode==='demo',readAt:lastRead||null,watts:live})});
+  register({name:'set_energy_chart',description:'Choisir la durée des barres et la mesure du graphique visible, sans commander d’appareil.',inputSchema:{type:'object',properties:{granularity:{type:'string',enum:['minute','quarter','hour','day','month','year']},metric:{type:'string',enum:['home','pool','heatpump','waterheater']}},required:['granularity','metric'],additionalProperties:false},annotations:{readOnlyHint:false},execute:async input=>{if(!input||!['minute','quarter','hour','day','month','year'].includes(input.granularity)||!['home','pool','heatpump','waterheater'].includes(input.metric))throw Error('Sélection invalide');granularity=input.granularity;metric=input.metric;await loadHistory();return {granularity,metric,mode,bars:currentBars.length};}});
+}
+})();
+
+</script>
+</body></html>
